@@ -22,9 +22,18 @@ try:
 except ImportError:  # python-dotenv 미설치 시에도 동작
     pass
 
+from datetime import date as _date
+
 from . import analyzer, page_generator, site_builder
-from .config import RSS_FEEDS, Config
+from .config import FUNDAMENTALS, RSS_FEEDS, Config
 from .sources import arxiv_client, github_client, rss_client
+
+
+def _fundamental_for(date_str: str) -> dict:
+    """날짜 기준으로 기초 커리큘럼을 결정적으로 순환 선택."""
+    y, m, d = (int(x) for x in date_str.split("-"))
+    idx = _date(y, m, d).toordinal() % len(FUNDAMENTALS)
+    return FUNDAMENTALS[idx]
 
 
 def _setup_logging() -> None:
@@ -67,8 +76,11 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
         return 0
 
     cfg.validate()
+    fundamental = _fundamental_for(date_str)
+    log.info("오늘의 기초 주제: %s / %s", fundamental["en"], fundamental["ko"])
     data = analyzer.analyze(
-        cfg.model, cfg.anthropic_api_key, date_str, raw["arxiv"], raw["news"], raw["repos"]
+        cfg.model, cfg.anthropic_api_key, date_str,
+        raw["arxiv"], raw["news"], raw["repos"], fundamental,
     )
 
     analysis_path = cfg.data_dir / f"{date_str}_learn.json"

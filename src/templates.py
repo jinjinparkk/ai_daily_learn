@@ -28,9 +28,16 @@ section.block{background:var(--panel);border:1px solid var(--line);border-radius
   padding:22px 24px;margin:22px 0}
 section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spacing:.06em;
   text-transform:uppercase;font-weight:700}
-.concept .term{font-size:22px;font-weight:800;margin:0 0 8px}
-.concept .why{margin-top:12px;padding:12px 14px;background:var(--panel2);border-radius:10px;
+.concept .term,.fund .term{font-size:22px;font-weight:800;margin:0 0 8px}
+.fund .sublabel{color:var(--accent2);font-size:12px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;margin:14px 0 4px}
+.terms{display:grid;gap:7px;margin-top:6px}
+.terms .t{display:flex;gap:10px;font-size:14px;align-items:baseline}
+.terms .tt2{color:var(--accent);font-weight:700;min-width:180px;flex:0 0 auto}
+.fund{border-left:3px solid var(--accent2)}
+.concept .why,.fund .why{margin-top:12px;padding:12px 14px;background:var(--panel2);border-radius:10px;
   border-left:3px solid var(--accent2);color:var(--muted);font-size:14px}
+.concept .why .bi,.fund .why .bi,.paper .why .bi{border-bottom:none;padding:4px 0}
 /* 이중언어 문장쌍 */
 .bi{padding:9px 0;border-bottom:1px dashed var(--line)}
 .bi:last-child{border-bottom:none}

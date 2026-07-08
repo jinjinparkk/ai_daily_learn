@@ -24,6 +24,32 @@ def _bi_list(pairs: list[dict]) -> str:
     return f'<div class="biwrap">{"".join(_bi(p) for p in (pairs or []))}</div>'
 
 
+def _terms(terms: list[dict]) -> str:
+    if not terms:
+        return ""
+    rows = "".join(
+        f'<div class="t"><span class="tt2">{_e(t.get("term"))}</span><span>{_e(t.get("meaning_ko"))}</span></div>'
+        for t in terms
+    )
+    return f'<div class="terms">{rows}</div>'
+
+
+def _fundamentals(f: dict) -> str:
+    if not f:
+        return ""
+    return f"""<section class="block fund">
+  <h2>오늘의 기초 · Fundamentals</h2>
+  <div class="term">{_e(f.get('topic_ko'))} <span style="color:var(--muted);font-weight:600;font-size:16px">{_e(f.get('topic_en'))}</span></div>
+  <div class="sublabel">이게 뭐야? · What is it</div>
+  {_bi_list(f.get('what_it_is', []))}
+  <div class="sublabel">작동 원리 · How it works</div>
+  {_bi_list(f.get('how_it_works', []))}
+  <div class="why"><strong>🧩 비유로 이해 · Analogy</strong>{_bi(f.get('analogy', {}))}</div>
+  <div class="sublabel">기본 용어 · Key terms</div>
+  {_terms(f.get('terms', []))}
+</section>"""
+
+
 def _key_concept(kc: dict) -> str:
     if not kc:
         return ""
@@ -127,6 +153,7 @@ def _takeaway(data: dict) -> str:
 def render_body(date_str: str, data: dict, label: str = "") -> str:
     """일일 학습 콘텐츠 본문 HTML (index/daily 공용)."""
     return f"""{_hero(date_str, data, label)}
+{_fundamentals(data.get('fundamentals', {}))}
 {_key_concept(data.get('key_concept', {}))}
 {_papers(data.get('papers', []))}
 {_trends(data.get('trends', []))}
