@@ -6,14 +6,7 @@ import json
 import logging
 from pathlib import Path
 
-from .page_generator import (
-    _glossary,
-    _key_concept,
-    _papers,
-    _quiz,
-    _tools,
-    _trends,
-)
+from .page_generator import render_body
 from .templates import page_shell
 
 log = logging.getLogger("aidl.site")
@@ -36,9 +29,9 @@ def save_manifest(site_dir: Path, manifest: list[dict]) -> None:
     )
 
 
-def upsert_manifest(site_dir: Path, date_str: str, headline: str) -> list[dict]:
+def upsert_manifest(site_dir: Path, date_str: str, headline_ko: str) -> list[dict]:
     manifest = load_manifest(site_dir)
-    entry = {"date": date_str, "headline": headline, "file": f"daily/{date_str}.html"}
+    entry = {"date": date_str, "headline": headline_ko, "file": f"daily/{date_str}.html"}
     manifest = [m for m in manifest if m["date"] != date_str]
     manifest.append(entry)
     manifest.sort(key=lambda m: m["date"], reverse=True)
@@ -48,18 +41,7 @@ def upsert_manifest(site_dir: Path, date_str: str, headline: str) -> list[dict]:
 
 def build_index(site_dir: Path, latest_date: str, data: dict, brand: str, tagline: str) -> None:
     """루트 index.html = 가장 최근 학습 콘텐츠(오늘)."""
-    body = f"""<div class="hero">
-  <div class="date">{_e(latest_date)} · 오늘의 학습</div>
-  <div class="headline">{_e(data.get('headline'))}</div>
-  <div class="intro">{_e(data.get('intro'))}</div>
-</div>
-{_key_concept(data.get('key_concept', {}))}
-{_papers(data.get('papers', []))}
-{_trends(data.get('trends', []))}
-{_tools(data.get('tools', []))}
-{_quiz(data.get('quiz', []))}
-{_glossary(data.get('glossary', []))}
-<div class="takeaway"><span class="lbl">오늘 반드시 기억할 것</span>{_e(data.get('takeaway'))}</div>"""
+    body = render_body(latest_date, data, label=" · 오늘의 학습 / Today")
     html_out = page_shell(brand, body, tagline, brand, base="", include_quiz_js=True)
     (site_dir / "index.html").write_text(html_out, encoding="utf-8")
     log.info("index.html 생성 (%s)", latest_date)
@@ -72,7 +54,7 @@ def build_archive(site_dir: Path, manifest: list[dict], brand: str, tagline: str
             f'<span class="ah">{_e(m["headline"])}</span></a></li>'
             for m in manifest
         )
-        body = f'<div class="hero"><div class="headline">지난 학습</div>' \
+        body = f'<div class="hero"><div class="headline">지난 학습 · Archive</div>' \
                f'<div class="intro">총 {len(manifest)}일의 학습 기록</div></div>' \
                f'<section class="block"><ul class="archive-list">{items}</ul></section>'
     else:

@@ -81,7 +81,8 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
     log.info("일일 페이지 생성: %s", daily_file)
 
     # 인덱스 + 아카이브
-    manifest = site_builder.upsert_manifest(cfg.site_dir, date_str, data.get("headline", ""))
+    headline_ko = (data.get("headline") or {}).get("ko", "")
+    manifest = site_builder.upsert_manifest(cfg.site_dir, date_str, headline_ko)
     latest = manifest[0]
     if latest["date"] == date_str:
         site_builder.build_index(cfg.site_dir, date_str, data, cfg.site_title, cfg.site_tagline)

@@ -31,6 +31,16 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
 .concept .term{font-size:22px;font-weight:800;margin:0 0 8px}
 .concept .why{margin-top:12px;padding:12px 14px;background:var(--panel2);border-radius:10px;
   border-left:3px solid var(--accent2);color:var(--muted);font-size:14px}
+/* 이중언어 문장쌍 */
+.bi{padding:9px 0;border-bottom:1px dashed var(--line)}
+.bi:last-child{border-bottom:none}
+.bi .en,.bi .ko{display:flex;gap:9px;align-items:flex-start;font-size:15px;line-height:1.6}
+.bi .en{color:#aab3c2}
+.bi .ko{color:var(--text);margin-top:4px}
+.bi .flag{flex:0 0 auto;font-size:10px;font-weight:800;letter-spacing:.03em;color:var(--accent);
+  padding:2px 6px;background:var(--pill);border-radius:5px;margin-top:3px}
+.bi .en .flag{color:var(--accent)} .bi .ko .flag{color:var(--accent2)}
+.biwrap{margin:6px 0}
 .paper{padding:16px 0;border-bottom:1px solid var(--line)}
 .paper:last-child{border-bottom:none;padding-bottom:0}
 .paper .pt{font-weight:700;font-size:16px}
@@ -54,9 +64,13 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
 .quiz .opt.wrong{border-color:#ff8f8f;background:#3a1e1e}
 .quiz .exp{display:none;margin-top:8px;padding:10px 12px;background:var(--panel2);
   border-radius:8px;color:var(--muted);font-size:14px}
-.gloss{display:grid;gap:8px}
-.gloss .g{display:flex;gap:10px;font-size:14px}
-.gloss .gt{color:var(--accent);font-weight:700;min-width:130px}
+/* 핵심 영어 표현 (어휘) */
+.vocab .v{padding:12px 0;border-bottom:1px solid var(--line)}
+.vocab .v:last-child{border-bottom:none}
+.vocab .vt{font-weight:800;font-size:16px;color:var(--accent)}
+.vocab .vm{color:var(--text);font-size:14px;margin-top:1px}
+.vocab .vex{margin-top:6px;padding:8px 12px;background:var(--panel2);border-radius:8px;font-size:13px}
+.vocab .vex .e{color:#aab3c2} .vocab .vex .k{color:var(--muted);margin-top:2px}
 .takeaway{background:linear-gradient(135deg,#1b2740,#16352b);border:1px solid var(--line);
   border-radius:14px;padding:20px 24px;margin:26px 0;font-size:17px;font-weight:600}
 .takeaway .lbl{display:block;color:var(--accent2);font-size:12px;letter-spacing:.08em;
