@@ -102,17 +102,17 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
 <main class="wrap">
 <div class="hero">
   <div class="date">2026-07-09</div>
-  <div class="headline">3D 이해, 신뢰할 수 있는 생성, 그리고 다시 주목받는 스케일링 법칙</div>
-  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">3D Understanding, Faithful Generation, and the Return of Scaling Laws</div>
+  <div class="headline">월드 모델, 효율적인 어텐션, 그리고 그 뒤에 있는 스케일링 법칙</div>
+  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">World Models, Efficient Attention, and the Scaling Laws Behind Them</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Today&#x27;s research is dominated by unified models that both understand and generate 3D and multimodal content.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘의 연구는 3D와 멀티모달 콘텐츠를 이해하고 생성하는 통합 모델이 주도하고 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Today&#x27;s papers are dominated by interactive world models and efficiency tricks for long-context language models.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘의 논문은 상호작용형 월드 모델과 긴 문맥 언어 모델을 위한 효율화 기법이 주를 이룹니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>On the industry side, OpenAI launched GPT-Live voice models while Google expanded managed agents in the Gemini API.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>산업계에서는 OpenAI가 GPT-Live 음성 모델을 공개했고, 구글은 Gemini API의 매니지드 에이전트를 확장했습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>On the industry side, model costs keep falling fast, and new releases like Gemma 4 and GPT-Live push multimodal capabilities forward.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>업계 쪽에서는 모델 비용이 계속 빠르게 떨어지고 있으며, Gemma 4와 GPT-Live 같은 신규 출시가 멀티모달 역량을 앞으로 밀어붙이고 있습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Our fundamentals section covers Scaling Laws, the idea that quietly underpins why bigger models keep getting better.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘의 기초 섹션에서는 더 큰 모델이 계속 좋아지는 이유를 조용히 뒷받침하는 개념인 스케일링 법칙을 다룹니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>To make sense of these trends, our fundamentals section explains scaling laws, the idea that quietly drives all of this progress.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이런 흐름을 이해하기 위해, 기초 섹션에서는 이 모든 발전을 조용히 이끄는 개념인 스케일링 법칙을 설명합니다.</span></div>
 </div></div>
 </div>
 <section class="block fund">
@@ -120,269 +120,272 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
   <div class="term">스케일링 법칙 <span style="color:var(--muted);font-weight:600;font-size:16px">Scaling Laws</span></div>
   <div class="sublabel">이게 뭐야? · What is it</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Scaling laws describe how a model&#x27;s performance improves in a predictable way as we increase model size, training data, and compute.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델 크기, 학습 데이터, 연산량을 늘릴 때 모델 성능이 예측 가능한 방식으로 향상되는 양상을 설명합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Scaling laws describe how a model&#x27;s performance improves as you increase three things: model size, dataset size, and the amount of compute used for training.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델 크기, 데이터셋 크기, 학습에 쓰이는 연산량이라는 세 가지를 늘렸을 때 모델 성능이 어떻게 향상되는지를 설명합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>They are usually expressed as smooth power-law curves, where error drops steadily as any of these three resources grows.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 법칙은 보통 매끄러운 거듭제곱 곡선으로 표현되며, 세 자원 중 어느 하나가 커질수록 오차가 꾸준히 감소합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The key finding is that these improvements follow a smooth, predictable pattern rather than random jumps.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>핵심 발견은 이러한 향상이 무작위적인 도약이 아니라 매끄럽고 예측 가능한 패턴을 따른다는 점입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This predictability lets researchers estimate how good a large model will be before actually training it.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이러한 예측 가능성 덕분에 연구자들은 대형 모델을 실제로 학습시키기 전에 그 성능을 미리 가늠할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This lets researchers forecast how much better a larger model will be before actually training it.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>덕분에 연구자들은 더 큰 모델을 실제로 학습시키기 전에 얼마나 더 좋아질지 예측할 수 있습니다.</span></div>
 </div></div>
   <div class="sublabel">작동 원리 · How it works</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>When you plot test loss against compute on a log-log scale, the points often fall onto a nearly straight line.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>테스트 손실을 연산량에 대해 로그-로그 척도로 그리면, 점들이 종종 거의 직선 위에 놓입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Researchers train many small models with different sizes and data amounts, then measure their loss, a number that reflects prediction error.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>연구자들은 크기와 데이터 양이 서로 다른 여러 작은 모델을 학습시킨 뒤, 예측 오차를 나타내는 값인 손실(loss)을 측정합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>That straight line means the relationship follows a power law: doubling resources gives a consistent, diminishing improvement.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 직선은 관계가 거듭제곱 법칙을 따른다는 뜻으로, 자원을 두 배로 늘릴 때마다 일정하게 줄어드는 개선이 나타납니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>When they plot loss against model size on a log-log scale, the points fall almost on a straight line.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>손실을 모델 크기에 대해 로그-로그 척도로 그리면, 점들이 거의 직선 위에 놓입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A key insight is balance: model size and data should grow together, since scaling one alone hits a wall.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>핵심 통찰은 균형입니다. 한쪽만 키우면 한계에 부딪히기 때문에 모델 크기와 데이터를 함께 늘려야 합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This straight line is a power law: loss decreases predictably as resources grow, though with diminishing returns.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이 직선은 거듭제곱 법칙(power law)으로, 자원이 커질수록 손실이 예측 가능하게 줄어들지만 수익은 점점 감소합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The Chinchilla study showed that many large models were undertrained, meaning they had too little data for their size.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>친칠라 연구는 많은 대형 모델이 학습 부족 상태였음을, 즉 크기에 비해 데이터가 너무 적었음을 보여주었습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A crucial insight is balance: adding more parameters without enough data, or vice versa, wastes resources.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>핵심 통찰은 균형입니다. 데이터가 충분하지 않은 채로 파라미터만 늘리거나 그 반대로 하면 자원을 낭비하게 됩니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Given a fixed compute budget, scaling laws help you choose the optimal split between making the model bigger and training it longer.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>고정된 연산 예산이 주어졌을 때, 스케일링 법칙은 모델을 더 크게 만드는 것과 더 오래 학습시키는 것 사이의 최적 배분을 정하도록 돕습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The Chinchilla study showed that many large models were undertrained, meaning they needed far more data for their size.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Chinchilla 연구는 많은 대형 모델이 학습 부족 상태였음을, 즉 그 크기에 비해 훨씬 더 많은 데이터가 필요했음을 보여주었습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>However, scaling laws are empirical trends, not guarantees, and they can bend or break at very large scales.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>다만 스케일링 법칙은 보장이 아니라 경험적 경향이며, 매우 큰 규모에서는 휘거나 무너질 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Scaling laws guide budgets by telling teams the best split of compute between model size and training tokens.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델 크기와 학습 토큰 사이에 연산을 어떻게 나누는 것이 최선인지 알려주어 예산 계획을 돕습니다.</span></div>
 </div></div>
   <div class="why"><strong>🧩 비유로 이해 · Analogy</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Think of it like baking bigger loaves of bread: a bigger oven (compute) and more flour (data) both help, but if you only enlarge the oven without adding flour, the loaf comes out hollow.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>더 큰 빵을 굽는 것과 비슷합니다. 더 큰 오븐(연산)과 더 많은 밀가루(데이터)가 모두 도움이 되지만, 밀가루 없이 오븐만 키우면 빵 속이 텅 비게 됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Think of baking bread: flour (data), oven size (model), and baking time (compute) must grow together in the right proportions, or you get an undercooked or wasted loaf.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>빵 굽기를 떠올려 보세요. 밀가루(데이터), 오븐 크기(모델), 굽는 시간(연산)이 올바른 비율로 함께 늘어나야 하며, 그렇지 않으면 덜 익거나 낭비되는 빵이 나옵니다.</span></div>
 </div></div>
   <div class="sublabel">기본 용어 · Key terms</div>
-  <div class="terms"><div class="t"><span class="tt2">Power law (거듭제곱 법칙)</span><span>한 양이 다른 양의 거듭제곱에 비례하는 관계로, 로그 척도에서 직선으로 나타남</span></div><div class="t"><span class="tt2">Compute budget (연산 예산)</span><span>학습에 쓸 수 있는 총 연산량으로, 보통 FLOPs로 측정됨</span></div><div class="t"><span class="tt2">Compute-optimal (연산 최적)</span><span>주어진 연산량에서 성능을 극대화하는 모델 크기와 데이터 양의 배분</span></div><div class="t"><span class="tt2">Undertraining (학습 부족)</span><span>모델 크기에 비해 학습 데이터가 부족해 잠재력을 다 발휘하지 못한 상태</span></div><div class="t"><span class="tt2">Test loss (테스트 손실)</span><span>학습에 쓰지 않은 데이터에서 측정한 모델의 예측 오차</span></div></div>
+  <div class="terms"><div class="t"><span class="tt2">Power law (거듭제곱 법칙)</span><span>한 변수가 다른 변수의 거듭제곱에 비례해 변하는 관계로, 로그 척도에서 직선으로 나타납니다.</span></div><div class="t"><span class="tt2">Loss (손실)</span><span>모델의 예측이 정답과 얼마나 차이 나는지를 나타내는 값으로, 작을수록 좋습니다.</span></div><div class="t"><span class="tt2">Compute-optimal (연산 최적)</span><span>주어진 연산 예산에서 모델 크기와 데이터 양을 최선으로 배분한 상태입니다.</span></div><div class="t"><span class="tt2">Parameters (파라미터)</span><span>학습을 통해 조정되는 모델 내부의 가중치 수로, 모델 크기를 나타내는 지표입니다.</span></div><div class="t"><span class="tt2">Diminishing returns (수익 체감)</span><span>자원을 더 투입할수록 성능 향상 폭이 점점 작아지는 현상입니다.</span></div></div>
 </section>
 <section class="block concept">
   <h2>오늘의 핵심 개념 · Key Concept</h2>
-  <div class="term">통합 멀티모달 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">Unified Multimodal Model</span></div>
+  <div class="term">월드 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">World Model</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A unified multimodal model handles many tasks and data types—text, images, 3D—inside a single backbone rather than separate specialized systems.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>통합 멀티모달 모델은 텍스트, 이미지, 3D 등 여러 작업과 데이터 유형을 개별 전용 시스템이 아닌 하나의 백본 안에서 처리합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A world model is a neural network that learns to predict how an environment will change in response to actions.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>월드 모델은 어떤 행동에 반응해 환경이 어떻게 변할지를 예측하도록 학습하는 신경망입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Instead of building a custom architecture for each task, it expresses tasks as instructions in a shared generation space.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>작업마다 맞춤 아키텍처를 만드는 대신, 작업을 공유된 생성 공간 안의 지시문으로 표현합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Instead of hand-building every rule of a game or a robot&#x27;s surroundings, the model learns dynamics from video and interaction data.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>게임이나 로봇 주변 환경의 모든 규칙을 손으로 만드는 대신, 모델은 영상과 상호작용 데이터로부터 동역학을 학습합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>SenseNova-Vision, for example, casts detection, segmentation, and depth estimation all as text-or-image generation problems.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>예를 들어 SenseNova-Vision은 탐지, 분할, 깊이 추정을 모두 텍스트 또는 이미지 생성 문제로 다룹니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Given the current state and a user&#x27;s action, it autoregressively generates the next observation, frame by frame.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>현재 상태와 사용자의 행동이 주어지면, 다음 관측을 프레임 단위로 자기회귀적으로 생성합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The appeal is scalability: one model can absorb new capabilities without adding task-specific prediction heads.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 접근의 매력은 확장성입니다. 하나의 모델이 작업별 예측 헤드를 추가하지 않고도 새로운 능력을 흡수할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>AlayaWorld applies this to playable game worlds, while RynnWorld models apply it to robotic manipulation and teleoperation.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 이를 플레이 가능한 게임 세계에 적용하고, RynnWorld 계열은 로봇 조작과 원격조작에 적용합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The challenge is that mixing modalities can cause interference, where learning one signal degrades another.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>다만 여러 모달리티를 섞으면 하나의 신호를 학습하는 것이 다른 신호를 저하시키는 간섭이 생길 수 있다는 점이 과제입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The appeal is that generated experiences can replace expensive real-world data collection for training agents.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이 방식의 매력은 생성된 경험이 에이전트 학습을 위한 값비싼 실제 데이터 수집을 대체할 수 있다는 점입니다.</span></div>
 </div></div>
   <div class="why"><strong>왜 지금? · Why now</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Several of today&#x27;s papers push unified models toward 3D and speech, showing this is now a central research direction rather than a niche experiment.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘 여러 논문이 통합 모델을 3D와 음성으로 확장하고 있어, 이것이 이제 틈새 실험이 아니라 핵심 연구 방향임을 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>With inference costs dropping sharply, generating rich interactive worlds is becoming cheap enough to be practical.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>추론 비용이 급격히 낮아지면서, 풍부한 상호작용형 세계를 생성하는 일이 실용적일 만큼 저렴해지고 있습니다.</span></div>
 </div></div>
 </section>
 <section class="block"><h2>주요 논문 해설 · Papers</h2><div class="paper">
-  <div class="pt">ELSA3D: 통합 3D 이해와 생성을 위한 탄력적 의미 앵커링<span class="en">ELSA3D: Elastic Semantic Anchoring for Unified 3D Understanding and Generation</span></div>
-  <div><span class="pill d고급">고급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Most unified 3D models simply mix text and 3D tokens into one flat sequence, blurring coarse structure and fine geometry together.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>대부분의 통합 3D 모델은 텍스트와 3D 토큰을 하나의 평평한 시퀀스로 섞어, 거친 구조와 세밀한 기하를 뭉뚱그립니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>ELSA3D introduces Anchor Tokens that route each semantic cue to the most relevant geometric scale.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>ELSA3D는 각 의미 단서를 가장 관련 있는 기하학적 스케일로 연결하는 앵커 토큰을 도입합니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A lightweight router keeps this cross-modal interaction sparse yet precise, cutting FLOPs and latency roughly in half.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>경량 라우터가 이 교차 모달 상호작용을 희소하면서도 정밀하게 유지하여 연산량과 지연을 약 절반으로 줄입니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It shows that smart routing, not just bigger sequences, can improve both quality and efficiency in 3D multimodal models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>단순히 더 긴 시퀀스가 아니라 영리한 라우팅이 3D 멀티모달 모델의 품질과 효율을 동시에 높일 수 있음을 보여줍니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.06565v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">통합 멀티모달 생성으로서의 비전 (SenseNova-Vision)<span class="en">Vision as Unified Multimodal Generation (SenseNova-Vision)</span></div>
+  <div class="pt">AlayaWorld: 장기 지평선 및 플레이 가능한 비디오 월드 생성<span class="en">AlayaWorld: Long-Horizon and Playable Video World Generation</span></div>
   <div><span class="pill d중급">중급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This work reframes computer vision tasks as text and image generation guided by natural-language instructions.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 연구는 컴퓨터 비전 작업을 자연어 지시로 안내되는 텍스트·이미지 생성 문제로 재정의합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>AlayaWorld is a full-stack open-source framework for generating interactive game worlds in real time.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 상호작용형 게임 세계를 실시간으로 생성하는 풀스택 오픈소스 프레임워크입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A single model covers detection, OCR, segmentation, depth, and camera pose without task-specific heads.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>하나의 모델이 작업별 헤드 없이 탐지, OCR, 분할, 깊이, 카메라 포즈까지 아우릅니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Rather than authoring every element, it autoregressively synthesizes future frames from the current state and user actions.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모든 요소를 직접 제작하는 대신, 현재 상태와 사용자 행동으로부터 미래 프레임을 자기회귀적으로 합성합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It matches leading specialized systems while remaining a general-purpose foundation model.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>범용 파운데이션 모델을 유지하면서도 최고 수준의 전용 시스템과 대등한 성능을 냅니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Users can freely navigate and perform actions like combat and spell casting inside the generated world.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>사용자는 생성된 세계 안에서 전투나 주문 시전 같은 행동을 자유롭게 수행하며 이동할 수 있습니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It suggests a scalable path to fold many vision capabilities directly into general foundation models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>여러 비전 능력을 범용 파운데이션 모델에 직접 통합하는 확장 가능한 경로를 제시합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It shows a path away from costly hand-built game pipelines toward models that generate worlds on demand.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>값비싼 수작업 게임 제작 파이프라인에서 벗어나, 요청 시 세계를 생성하는 모델로 가는 길을 보여줍니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.06560v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.06291" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">ProxyPose: 비디오-투-비디오 변환을 통한 6자유도 자세 추적<span class="en">ProxyPose: 6-DoF Pose Tracking via Video-to-Video Translation</span></div>
+  <div class="pt">RynnWorld-4D: 로봇 조작을 위한 4D 체화 월드 모델<span class="en">RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>ProxyPose tracks an object&#x27;s full 6-DoF pose from plain video plus a single marked pixel, without 3D models or depth maps.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>ProxyPose는 3D 모델이나 깊이 지도 없이, 일반 비디오와 표시된 한 픽셀만으로 물체의 완전한 6자유도 자세를 추적합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>RynnWorld-4D jointly generates future RGB frames, depth maps, and optical flow from one RGB-D image and a language instruction.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>RynnWorld-4D는 하나의 RGB-D 이미지와 언어 지시로부터 미래 RGB 프레임, 깊이 맵, 광류를 함께 생성합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A fine-tuned video diffusion model translates the input into a synthetic &#x27;proxy&#x27; video of a known colored polyhedron.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>미세 조정된 비디오 확산 모델이 입력을 알려진 색상의 다면체를 담은 합성 &#x27;프록시&#x27; 비디오로 변환합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This RGB-DF representation links visual appearance with geometry and motion, closer to what robots actually need.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이 RGB-DF 표현은 시각적 외형을 기하 구조 및 움직임과 연결하여, 로봇이 실제로 필요로 하는 것에 더 가깝습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Since the proxy&#x27;s geometry is known, recovering its trajectory reduces to classical pose estimation.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>프록시의 기하가 이미 알려져 있으므로, 그 궤적 복원은 고전적인 자세 추정 문제로 단순화됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It uses a tri-branch architecture and was trained on over 254 million frames.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>세 갈래 구조(tri-branch)를 사용하며 2억 5,400만 장이 넘는 프레임으로 학습되었습니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It handles hard cases like transparent or deformable surfaces by leaning on large-scale video pretraining.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>대규모 비디오 사전학습에 기대어 투명하거나 변형되는 표면 같은 어려운 사례를 다룹니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>By predicting 3D dynamics, not just pixels, it narrows the gap between world prediction and robot policy learning.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>단순한 픽셀이 아닌 3D 동역학을 예측함으로써, 세계 예측과 로봇 정책 학습 사이의 간극을 좁힙니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.06555v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.06559" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">Lychee-FD: 완전 이중통신 음성 언어 모델을 위한 계층적 음향-의미 모델링<span class="en">Lychee-FD: Hierarchical Acoustic-Semantic Modeling for Full-Duplex Spoken Language Models</span></div>
+  <div class="pt">Gemma 4 기술 보고서<span class="en">Gemma 4 Technical Report</span></div>
   <div><span class="pill d중급">중급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Full-duplex spoken models let people and AI talk at the same time, but they suffer from modality interference.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>완전 이중통신 음성 모델은 사람과 AI가 동시에 말할 수 있게 하지만 모달리티 간섭에 시달립니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Gemma 4 is a family of open-weight, natively multimodal models ranging from 2.3B to 31B parameters.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Gemma 4는 2.3B에서 31B 파라미터에 이르는 오픈 웨이트 네이티브 멀티모달 모델 제품군입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The authors trace this to gradient conflicts when acoustic and semantic modeling share deep layers.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>저자들은 이 문제의 원인을 음향 모델링과 의미 모델링이 깊은 층을 공유할 때 생기는 기울기 충돌로 규명합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It includes both dense and Mixture-of-Experts architectures, plus improved vision and audio encoders.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>밀집(dense) 구조와 전문가 혼합(MoE) 구조를 모두 포함하며, 개선된 비전·오디오 인코더를 갖췄습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Their fix separates the conflicting modalities in deep layers while keeping a dedicated alignment channel.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이들의 해법은 충돌하는 모달리티를 깊은 층에서 분리하되 전용 정렬 채널을 유지하는 것입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A thinking mode lets the models generate reasoning traces before giving a final answer.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>&#x27;생각 모드&#x27;는 모델이 최종 답을 내기 전에 추론 과정을 생성하도록 해 줍니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It pinpoints why speech AI can feel unnatural and offers a concrete architectural remedy.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>음성 AI가 부자연스럽게 느껴지는 이유를 짚어내고 구체적인 아키텍처적 해법을 제시합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It shows how compute-efficient design and scaling choices let smaller open models rival larger frontier ones.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>연산 효율적인 설계와 스케일링 선택이 어떻게 더 작은 오픈 모델을 대형 프론티어 모델과 견주게 하는지 보여줍니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.06540v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.02770" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">처음부터 실패할 운명: 탐침 캐스케이드를 통한 LLM 에이전트 조기 중단<span class="en">Doomed from the Start: Early Abort of LLM Agent Episodes via a Probe Cascade</span></div>
-  <div><span class="pill d중급">중급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>LLM agents often commit early to trajectories that are doomed to fail, wasting large amounts of compute.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>LLM 에이전트는 종종 실패할 운명의 경로에 일찍 들어서서 막대한 연산을 낭비합니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Lightweight probes on hidden activations can predict eventual failure as early as the first round.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>은닉 활성값에 대한 경량 탐침이 첫 라운드부터 최종 실패를 예측할 수 있습니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A calibrated abort cascade saves up to 47% of inference compute while meeting strict recall targets.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>보정된 중단 캐스케이드는 엄격한 재현율 목표를 지키면서 추론 연산을 최대 47%까지 절감합니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It offers a practical way to cut agent costs by stopping hopeless runs before they burn resources.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>가망 없는 실행을 자원 소모 전에 멈춰 에이전트 비용을 줄이는 실용적 방법을 제공합니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.06503v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">Pitwall: 몬테카를로 엔진 기반의 신뢰할 수 있는 자연어 레이스 전략 브리핑<span class="en">Pitwall: Faithful Natural-Language Race-Strategy Briefings from a Monte Carlo Engine</span></div>
+  <div class="pt">제대로 된 계층적 희소 어텐션: 무한 문맥 모델링을 향하여<span class="en">Hierarchical Sparse Attention Done Right: Toward Infinite Context Modeling</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Pitwall generates live Formula 1 strategy briefings in three languages, grounded in a calibrated Monte Carlo simulation.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Pitwall은 보정된 몬테카를로 시뮬레이션에 근거해 세 개 언어로 실시간 F1 전략 브리핑을 생성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Dense attention scales quadratically with context length, making very long inputs expensive.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>밀집 어텐션은 문맥 길이에 대해 제곱으로 비용이 커져, 매우 긴 입력을 다루기에 비쌉니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Every sentence is broken into typed factual claims that are verified against the probabilistic race state.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>모든 문장은 유형화된 사실 주장으로 분해되어 확률적 레이스 상태에 대해 검증됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>HiLS Attention selects relevant chunks and learns that selection end-to-end under the language-modeling loss.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>HiLS 어텐션은 관련 있는 청크를 선택하고, 그 선택을 언어 모델링 손실 아래에서 종단 간(end-to-end)으로 학습합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Only briefings whose every claim is state-supported are kept, treating faithfulness as an architectural property.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>모든 주장이 상태로 뒷받침되는 브리핑만 남기며, 신뢰성을 아키텍처의 속성으로 취급합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It matches full attention in-domain and extrapolates to over 64 times the training context length.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>도메인 내에서는 완전 어텐션에 필적하며, 학습 문맥 길이의 64배 이상으로 외삽(extrapolate)합니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It is a strong case study of grounding generation to reduce hallucination in high-stakes, real-time settings.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>고위험 실시간 환경에서 생성을 근거화해 환각을 줄이는 강력한 사례 연구입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Efficient sparse attention is key to scaling models to very long contexts without exploding compute.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>효율적인 희소 어텐션은 연산을 폭발적으로 늘리지 않고 모델을 매우 긴 문맥으로 확장하는 데 핵심입니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.06495v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.02980" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+</div><div class="paper">
+  <div class="pt">KVpop: 예측적 온라인 가지치기를 통한 키-값 캐시 압축<span class="en">KVpop -- Key-Value Cache Compression with Predictive Online Pruning</span></div>
+  <div><span class="pill d고급">고급</span></div>
+  <div class="biwrap"><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>The key-value cache grows linearly with context length and becomes a major memory bottleneck during decoding.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>키-값 캐시는 문맥 길이에 따라 선형으로 커져, 디코딩 중 주요한 메모리 병목이 됩니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>KVpop learns which cached entries to keep or drop by supervising against a future-attention target.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>KVpop은 미래 어텐션 목표를 기준으로 지도 학습하여 어떤 캐시 항목을 유지하거나 버릴지 배웁니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>It retains 98% of full-attention performance while compressing the cache by 75%.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>캐시를 75% 압축하면서도 완전 어텐션 성능의 98%를 유지합니다.</span></div>
+</div></div>
+  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Smarter cache compression cuts serving costs and lets long-context models run on less memory.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>더 똑똑한 캐시 압축은 서빙 비용을 줄이고 긴 문맥 모델을 더 적은 메모리로 구동하게 합니다.</span></div>
+</div></div>
+  <div><a href="https://arxiv.org/abs/2607.05061" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+</div><div class="paper">
+  <div class="pt">MANCE: 매니폴드를 고려한 개념 제거<span class="en">MANCE: Manifold Aware Concept Erasure</span></div>
+  <div><span class="pill d고급">고급</span></div>
+  <div class="biwrap"><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Concept erasure removes a target concept from a representation while preserving other information.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>개념 제거는 표현에서 특정 대상 개념을 지우면서 나머지 정보는 보존하는 작업입니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>MANCE constrains the removal to a lower-dimensional manifold learned from natural inputs.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>MANCE는 자연스러운 입력에서 학습한 저차원 매니폴드로 제거 작업을 제한합니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Across 119 settings in text and vision, it consistently reduces information leakage.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>텍스트와 비전에 걸친 119개 설정에서 정보 누출을 일관되게 줄였습니다.</span></div>
+</div></div>
+  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>It offers a principled way to edit model representations, useful for fairness and privacy applications.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모델 표현을 편집하는 원리적 방법을 제시하여, 공정성과 프라이버시 응용에 유용합니다.</span></div>
+</div></div>
+  <div><a href="https://arxiv.org/abs/2607.03973" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div></section>
 <section class="block"><h2>트렌드 인사이트 · Trends</h2><div class="trend">
-  <div class="tt"><a href="https://openai.com/index/introducing-gpt-live" target="_blank" rel="noopener">OpenAI, GPT-Live 음성 모델 공개</a></div>
-  <div class="src">OpenAI introduces GPT-Live voice models · OpenAI Blog</div>
+  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">지능이 빠르게 저렴해지고 있다</a></div>
+  <div class="src">Intelligence Is Getting Cheap Fast · Berkeley AI Research (BAIR)</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>OpenAI announced GPT-Live, a new generation of voice models now powering ChatGPT Voice.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>OpenAI가 현재 ChatGPT Voice를 구동하는 차세대 음성 모델 GPT-Live를 발표했습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>GPT-4-class capability cost about $30 per million tokens in early 2023 and now runs under $1, with some providers below $0.10.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>GPT-4급 역량은 2023년 초 100만 토큰당 약 30달러였으나 지금은 1달러 미만, 일부 제공사는 0.10달러 아래로 떨어졌습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This aligns with today&#x27;s research on natural, full-duplex speech interaction.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이는 자연스러운 완전 이중통신 음성 상호작용에 관한 오늘의 연구 흐름과 맞닿아 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Inference prices have fallen between 9x and 900x per year, with a median decline near 50x.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>추론 가격은 연간 9배에서 900배까지 하락했으며, 중앙값은 약 50배에 이릅니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>This makes agent-driven systems and generated worlds economically viable much sooner than expected.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이로 인해 에이전트 기반 시스템과 생성된 세계가 예상보다 훨씬 빨리 경제적으로 실현 가능해지고 있습니다.</span></div>
 </div></div>
 </div><div class="trend">
-  <div class="tt"><a href="https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/" target="_blank" rel="noopener">구글, Gemini API의 매니지드 에이전트 확장</a></div>
-  <div class="src">Google expands managed agents in the Gemini API · Google AI Blog</div>
+  <div class="tt"><a href="https://openai.com/index/introducing-gpt-live" target="_blank" rel="noopener">OpenAI, 음성용 GPT-Live 공개</a></div>
+  <div class="src">OpenAI Introduces GPT-Live for Voice · OpenAI Blog</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Google added background tasks and remote MCP support to managed agents in the Gemini API.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>구글은 Gemini API의 매니지드 에이전트에 백그라운드 작업과 원격 MCP 지원을 추가했습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>GPT-Live is a new generation of voice models aimed at more natural human-AI interaction.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>GPT-Live는 더 자연스러운 사람-AI 상호작용을 목표로 한 새 세대의 음성 모델입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This reflects the broader industry shift toward agentic, tool-using systems.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이는 도구를 사용하는 에이전트형 시스템으로 향하는 업계 전반의 전환을 반영합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It now powers ChatGPT Voice, reflecting a push toward multimodal, real-time interfaces.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>현재 ChatGPT Voice를 구동하며, 멀티모달·실시간 인터페이스로 향하는 흐름을 보여줍니다.</span></div>
 </div></div>
 </div><div class="trend">
-  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">버클리 BAIR: 지능이 빠르게 저렴해지고 있다</a></div>
-  <div class="src">Berkeley BAIR: Intelligence is getting cheap, fast · The Berkeley AI Research (BAIR)</div>
+  <div class="tt"><a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations" target="_blank" rel="noopener">인기 코딩 벤치마크에 대한 의문</a></div>
+  <div class="src">Doubts About a Popular Coding Benchmark · OpenAI Blog</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>BAIR notes inference prices have fallen between 9x and 900x per year, with a median near 50x.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>BAIR는 추론 가격이 연간 9배에서 900배까지 하락했으며 중간값이 약 50배라고 지적합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>OpenAI&#x27;s analysis found reliability issues in SWE-Bench Pro, a widely used coding benchmark.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>OpenAI의 분석은 널리 쓰이는 코딩 벤치마크 SWE-Bench Pro에서 신뢰성 문제를 발견했습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>They argue cheap, sufficient intelligence is already reshaping how we design data systems for agents.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이들은 저렴하고 충분한 지능이 이미 에이전트용 데이터 시스템 설계 방식을 바꾸고 있다고 주장합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It is a reminder to separate genuine signal from noise when comparing AI model claims.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>AI 모델의 주장을 비교할 때 진짜 신호와 잡음을 구분해야 한다는 점을 일깨웁니다.</span></div>
 </div></div>
 </div></section>
 <section class="block"><h2>주목할 오픈소스 · Tools</h2><div class="tool">
   <div class="tt"><a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener">omnigent</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An open-source AI agent framework and meta-harness that lets you orchestrate Claude Code, Codex, Cursor, and custom agents without rewriting.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor 등 다양한 에이전트를 재작성 없이 오케스트레이션할 수 있는 오픈소스 AI 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An open-source agent framework and meta-harness that lets you orchestrate and swap coding agents like Claude Code, Codex, and Cursor without rewriting.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor 같은 코딩 에이전트를 다시 작성하지 않고 조율하고 교체할 수 있는 오픈소스 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
 </div>
 </div><div class="tool">
   <div class="tt"><a href="https://github.com/buynao/aipath" target="_blank" rel="noopener">aipath</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An interactive AI general-education course with 30 lessons and zero math required, aimed at beginners.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>수학 없이도 배울 수 있는 30개 강의로 구성된, 초보자를 위한 대화형 AI 일반 교육 과정입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An interactive AI general education course with 30 lessons and zero math required, good for beginners.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>수학 없이 30개 강의로 구성된 인터랙티브 AI 교양 과정으로, 초보자에게 적합합니다.</span></div>
 </div>
 </div><div class="tool">
   <div class="tt"><a href="https://github.com/ibrahimqureshae/mdflux" target="_blank" rel="noopener">mdflux</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A local-first desktop app that turns any document, including scanned PDFs, into clean AI-ready Markdown using far fewer tokens than vision models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스캔된 PDF를 포함한 모든 문서를 비전 모델보다 훨씬 적은 토큰으로 깔끔한 AI용 마크다운으로 변환하는 로컬 우선 데스크톱 앱입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A local-first desktop app that turns documents, including scanned PDFs, into clean AI-ready Markdown while using far fewer tokens than vision models.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>스캔된 PDF를 포함한 문서를 깔끔한 AI용 마크다운으로 변환하는 로컬 우선 데스크톱 앱으로, 비전 모델보다 훨씬 적은 토큰을 사용합니다.</span></div>
 </div>
 </div></section>
-<section class="block quiz"><h2>오늘의 퀴즈 · Quiz (클릭해서 정답 확인)</h2><div class="q" data-answer="1">
-  <div class="qq">Q. 스케일링 법칙에 따르면, 성능 한계에 부딪히지 않으려면 무엇이 함께 커져야 할까요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">According to scaling laws, what should grow together to avoid hitting a performance wall?</span></div>
-  <button class="opt" type="button">Only model size</button><button class="opt" type="button">Model size and training data</button><button class="opt" type="button">Only the learning rate</button><button class="opt" type="button">The number of GPUs alone</button>
-  <div class="exp">✅ 친칠라 연구의 핵심은 모델 크기와 데이터를 함께 키워야 한다는 것으로, 한쪽만 키우면 학습 부족이나 낭비가 발생합니다.<br><span style="color:#8a93a2">The Chinchilla finding is that model size and data should scale together; enlarging one alone leads to undertraining or waste.</span></div>
-</div><div class="q" data-answer="1">
-  <div class="qq">Q. ProxyPose의 6자유도 자세 추적 접근법의 핵심 아이디어는 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the main idea behind ProxyPose&#x27;s approach to 6-DoF pose tracking?</span></div>
-  <button class="opt" type="button">It requires a 3D model of every object</button><button class="opt" type="button">It translates video into a synthetic proxy video of a known shape</button><button class="opt" type="button">It uses only depth sensors</button><button class="opt" type="button">It manually labels every frame</button>
-  <div class="exp">✅ ProxyPose는 입력을 알려진 색상 다면체의 프록시 비디오로 변환하여, 자세 복원을 고전적 추정 문제로 만듭니다.<br><span style="color:#8a93a2">ProxyPose translates the input into a proxy video of a known colored polyhedron, so pose recovery becomes classical estimation.</span></div>
-</div><div class="q" data-answer="1">
-  <div class="qq">Q. Lychee-FD 논문에서 모달리티 간섭의 근본 원인으로 지목된 것은 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">In the Lychee-FD paper, what was identified as the root cause of modality interference?</span></div>
-  <button class="opt" type="button">Insufficient training data</button><button class="opt" type="button">Gradient conflicts when acoustic and semantic modeling share deep layers</button><button class="opt" type="button">Hardware limitations</button><button class="opt" type="button">Too small a vocabulary</button>
-  <div class="exp">✅ 논문은 간섭의 원인을 음향과 의미 모델링이 깊은 파라미터 공간을 공유하도록 강제될 때 생기는 기울기 충돌로 규명합니다.<br><span style="color:#8a93a2">The paper traces interference to gradient conflicts between acoustic and semantic modeling forced to share a deep parameter space.</span></div>
+<section class="block quiz"><h2>오늘의 퀴즈 · Quiz (클릭해서 정답 확인)</h2><div class="q" data-answer="0">
+  <div class="qq">Q. 스케일링 법칙에 따르면, 손실을 모델 크기에 대해 로그-로그 척도로 그리면 보통 어떤 일이 일어나나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">According to scaling laws, what typically happens when loss is plotted against model size on a log-log scale?</span></div>
+  <button class="opt" type="button">The points form a nearly straight line (a power law)</button><button class="opt" type="button">The points scatter randomly with no pattern</button><button class="opt" type="button">Loss increases as model size grows</button><button class="opt" type="button">Loss stays exactly constant</button>
+  <div class="exp">✅ 스케일링 법칙은 손실이 로그-로그 척도에서 거의 직선을 따라 감소함을 보여주며, 이는 거듭제곱 법칙 관계를 반영합니다.<br><span style="color:#8a93a2">Scaling laws show that loss decreases along a nearly straight line on a log-log scale, reflecting a power-law relationship.</span></div>
+</div><div class="q" data-answer="0">
+  <div class="qq">Q. AlayaWorld나 RynnWorld-4D 같은 월드 모델의 주된 목적은 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the main purpose of a world model like AlayaWorld or RynnWorld-4D?</span></div>
+  <button class="opt" type="button">To predict how an environment changes in response to actions</button><button class="opt" type="button">To compress the key-value cache</button><button class="opt" type="button">To translate text between languages</button><button class="opt" type="button">To rank search results</button>
+  <div class="exp">✅ 월드 모델은 환경의 동역학을 학습하여, 현재 상태와 행동이 주어졌을 때 미래 관측을 예측합니다.<br><span style="color:#8a93a2">A world model learns the dynamics of an environment, predicting future observations given the current state and actions.</span></div>
+</div><div class="q" data-answer="0">
+  <div class="qq">Q. HiLS 어텐션은 긴 문맥에서 왜 밀집 어텐션 대신 청크 단위 희소 어텐션을 사용하나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">Why does HiLS Attention use chunk-wise sparse attention instead of dense attention for long contexts?</span></div>
+  <button class="opt" type="button">Because dense attention scales quadratically and is expensive for long inputs</button><button class="opt" type="button">Because sparse attention always ignores accuracy</button><button class="opt" type="button">Because dense attention cannot be trained at all</button><button class="opt" type="button">Because chunks make the model smaller in parameters</button>
+  <div class="exp">✅ 밀집 어텐션은 문맥 길이에 따라 비용이 제곱으로 늘어나므로, 희소 기법은 관련 청크만 선택해 효율을 유지합니다.<br><span style="color:#8a93a2">Dense attention&#x27;s cost grows quadratically with context length, so sparse methods select only relevant chunks to stay efficient.</span></div>
 </div></section>
 <section class="block vocab"><h2>핵심 영어 표현 · Vocabulary</h2><div class="v">
-  <div class="vt">backbone</div>
-  <div class="vm">백본, 모델의 핵심 신경망 구조</div>
-  <div class="vex"><div class="e">“A unified model handles many tasks within a single backbone.”</div><div class="k">통합 모델은 하나의 백본 안에서 여러 작업을 처리합니다.</div></div>
+  <div class="vt">autoregressive</div>
+  <div class="vm">자기회귀적인; 이전 출력을 바탕으로 다음 출력을 순차적으로 생성하는 방식</div>
+  <div class="vex"><div class="e">“The world model autoregressively generates each future frame from the previous one.”</div><div class="k">이 월드 모델은 이전 프레임으로부터 각 미래 프레임을 자기회귀적으로 생성합니다.</div></div>
 </div><div class="v">
-  <div class="vt">undertrained</div>
-  <div class="vm">학습 부족의, 크기에 비해 데이터가 부족한</div>
-  <div class="vex"><div class="e">“Many large models turned out to be undertrained.”</div><div class="k">많은 대형 모델이 학습 부족 상태였음이 드러났습니다.</div></div>
+  <div class="vt">quadratic cost</div>
+  <div class="vm">제곱 비용; 입력 크기가 늘 때 계산량이 그 제곱에 비례해 커지는 것</div>
+  <div class="vex"><div class="e">“Dense attention has a quadratic cost with respect to sequence length.”</div><div class="k">밀집 어텐션은 시퀀스 길이에 대해 제곱 비용을 가집니다.</div></div>
 </div><div class="v">
-  <div class="vt">faithfulness</div>
-  <div class="vm">충실성, 생성 결과가 근거 사실과 일치하는 정도</div>
-  <div class="vex"><div class="e">“Pitwall treats faithfulness as an architectural property.”</div><div class="k">Pitwall은 충실성을 아키텍처의 속성으로 취급합니다.</div></div>
+  <div class="vt">extrapolate</div>
+  <div class="vm">외삽하다; 학습에서 본 범위를 넘어선 조건으로 능력을 확장하다</div>
+  <div class="vex"><div class="e">“The model can extrapolate to contexts far longer than those seen in training.”</div><div class="k">이 모델은 학습에서 본 것보다 훨씬 긴 문맥으로 외삽할 수 있습니다.</div></div>
 </div><div class="v">
-  <div class="vt">inference compute</div>
-  <div class="vm">추론 연산, 모델을 실행할 때 드는 계산량</div>
-  <div class="vex"><div class="e">“The abort cascade saves nearly half the inference compute.”</div><div class="k">중단 캐스케이드는 추론 연산을 거의 절반 절감합니다.</div></div>
+  <div class="vt">compute-optimal</div>
+  <div class="vm">연산 최적의; 주어진 연산 예산에서 성능을 극대화하도록 자원을 배분한</div>
+  <div class="vex"><div class="e">“Scaling laws help teams find a compute-optimal balance of model size and data.”</div><div class="k">스케일링 법칙은 팀이 모델 크기와 데이터의 연산 최적 균형을 찾도록 돕습니다.</div></div>
 </div><div class="v">
-  <div class="vt">full-duplex</div>
-  <div class="vm">완전 이중통신, 양쪽이 동시에 주고받는 방식</div>
-  <div class="vex"><div class="e">“Full-duplex speech lets the user and AI talk at once.”</div><div class="k">완전 이중통신 음성은 사용자와 AI가 동시에 말할 수 있게 합니다.</div></div>
+  <div class="vt">Mixture-of-Experts</div>
+  <div class="vm">전문가 혼합; 입력마다 일부 전문가 하위망만 활성화해 효율을 높이는 구조</div>
+  <div class="vex"><div class="e">“Gemma 4 offers both dense and Mixture-of-Experts architectures.”</div><div class="k">Gemma 4는 밀집 구조와 전문가 혼합 구조를 모두 제공합니다.</div></div>
 </div><div class="v">
-  <div class="vt">out-of-distribution</div>
-  <div class="vm">분포 밖의, 학습 때 보지 못한 유형의 데이터</div>
-  <div class="vex"><div class="e">“The model showed stronger generalization to out-of-distribution perturbations.”</div><div class="k">이 모델은 분포 밖 교란에 대해 더 강한 일반화를 보였습니다.</div></div>
+  <div class="vt">bottleneck</div>
+  <div class="vm">병목; 전체 성능을 제한하는 가장 느리거나 부족한 지점</div>
+  <div class="vex"><div class="e">“KV cache growth is a major memory bottleneck in long-context decoding.”</div><div class="k">KV 캐시 증가는 긴 문맥 디코딩에서 주요한 메모리 병목입니다.</div></div>
 </div><div class="v">
-  <div class="vt">grounding</div>
-  <div class="vm">근거화, 출력을 실제 상태나 사실에 연결하는 것</div>
-  <div class="vex"><div class="e">“Grounding generation in the race state reduces hallucination.”</div><div class="k">생성을 레이스 상태에 근거화하면 환각이 줄어듭니다.</div></div>
+  <div class="vt">leakage</div>
+  <div class="vm">누출; 지웠어야 할 정보가 여전히 표현에 남아 새어 나오는 현상</div>
+  <div class="vex"><div class="e">“MANCE consistently reduces concept leakage after erasure.”</div><div class="k">MANCE는 제거 후 개념 누출을 일관되게 줄입니다.</div></div>
 </div></section>
 <div class="takeaway"><span class="lbl">오늘 반드시 기억할 것 · Takeaway</span>
-  오늘의 주제는 통합과 효율입니다. 여러 모달리티를 넘나들며 이해하고 생성하는 모델이 근거화를 통해 신뢰를 얻고, 영리한 라우팅과 조기 중단을 통해 더 저렴해지고 있습니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">Today&#x27;s theme is unification and efficiency: models that understand and generate across modalities, made trustworthy through grounding and made cheaper through smart routing and early stopping.</span></div>
+  오늘의 연구는 두 힘이 함께 작동함을 보여줍니다. 더 큰 모델을 예측 가능하게 더 좋게 만드는 스케일링 법칙과, 그런 모델을 상호작용형 세계와 에이전트를 구동할 만큼 저렴하게 유지하는 효율화 기법입니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">Today&#x27;s research shows two forces working together: scaling laws that make bigger models predictably better, and efficiency tricks that keep those models affordable enough to power interactive worlds and agents.</span></div>
 </main>
 <footer>AI Daily Learn · Claude 가 매일 자동 생성 · 학습은 복리입니다 📈</footer>
 <script>
