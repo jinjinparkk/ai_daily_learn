@@ -140,15 +140,11 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
     manifest = site_builder.upsert_manifest(cfg.site_dir, date_str, headline_ko)
     latest = manifest[0]
     if latest["date"] == date_str:
+        # 오늘(최신)을 생성한 경우에만 index(오늘) 갱신
         site_builder.build_index(cfg.site_dir, date_str, data, cfg.site_title, cfg.site_tagline)
     else:
-        # 과거 날짜를 재생성한 경우 index 는 최신 유지
-        latest_data = json.loads(
-            (cfg.data_dir / f"{latest['date']}_learn.json").read_text(encoding="utf-8")
-        )
-        site_builder.build_index(
-            cfg.site_dir, latest["date"], latest_data, cfg.site_title, cfg.site_tagline
-        )
+        # 과거 날짜 재생성 시 index 는 건드리지 않음 (최신 날짜가 index 를 담당)
+        log.info("과거 날짜(%s) 생성 — index 는 최신(%s) 유지, 갱신 생략", date_str, latest["date"])
     site_builder.build_archive(cfg.site_dir, manifest, cfg.site_title, cfg.site_tagline)
 
     log.info("=== 완료. 사이트: %s ===", cfg.site_dir.resolve())
