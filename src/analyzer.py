@@ -8,10 +8,26 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 
 import anthropic
 
 log = logging.getLogger("aidl.analyzer")
+
+# 모델이 드물게 뱉는 깨진 바이트(U+FFFD �)와 바로 뒤 잔여 문자 1개 제거.
+# 예: "담�a긴" → "담긴". U+FFFD 는 오직 손상 시에만 나오므로 제거해도 안전.
+_FFFD_RE = re.compile("�[A-Za-z0-9]?")
+
+
+def sanitize(obj):
+    """dict/list/str 재귀 순회하며 손상 문자 제거."""
+    if isinstance(obj, dict):
+        return {k: sanitize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [sanitize(v) for v in obj]
+    if isinstance(obj, str):
+        return _FFFD_RE.sub("", obj) if "�" in obj else obj
+    return obj
 
 _SYSTEM = """당신은 AI 분야를 가르치는 뛰어난 이중언어(영어/한국어) 교육자입니다.
 매일 수집된 arXiv 논문, AI 업계 뉴스, 오픈소스 트렌드를 바탕으로,
@@ -122,8 +138,8 @@ def translate_words(model: str, api_key: str, words: list[str]) -> dict:
             out.update(json.loads(_extract_json(text)))
         except (json.JSONDecodeError, anthropic.APIError) as exc:
             log.warning("워드북 청크 실패(무시): %s", exc)
-    # 키를 소문자로 정규화
-    return {str(k).lower(): v for k, v in out.items() if isinstance(v, str) and v.strip()}
+    # 키를 소문자로 정규화 + 손상 문자 제거
+    return {str(k).lower(): sanitize(v) for k, v in out.items() if isinstance(v, str) and v.strip()}
 
 
 def analyze(model: str, api_key: str, date_str: str, papers: list[dict], news: list[dict],
@@ -167,6 +183,7 @@ def analyze(model: str, api_key: str, date_str: str, papers: list[dict], news: l
         result = json.loads(_extract_json(text))
     except json.JSONDecodeError:
         result = _repair_json(client, model, text)
+    result = sanitize(result)  # 손상 문자 제거
     log.info("Claude 분석 완료 (논문 %d / 퀴즈 %d / 어휘 %d)",
              len(result.get("papers", [])), len(result.get("quiz", [])), len(result.get("vocab", [])))
     return result

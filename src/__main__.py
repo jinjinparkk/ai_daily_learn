@@ -132,6 +132,12 @@ def rerender(cfg: Config) -> int:
     for f in files:
         date_str = f.stem
         data = json.loads(f.read_text(encoding="utf-8"))
+        # 손상 문자(U+FFFD) 정화 — 있으면 content 도 갱신
+        clean = analyzer.sanitize(data)
+        if clean != data:
+            data = clean
+            f.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+            log.info("[%s] 손상 문자 정화", date_str)
         # 워드북이 없으면 저가로 백필(키 있을 때만) 후 content 갱신
         if not data.get("wordbook") and cfg.anthropic_api_key:
             try:
