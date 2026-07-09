@@ -27,9 +27,13 @@ class Paper:
     keywords: list[str]
 
 
-def fetch_daily_papers(limit: int = 60) -> list[Paper]:
+def fetch_daily_papers(limit: int = 60, date: str | None = None) -> list[Paper]:
+    """date(YYYY-MM-DD) 지정 시 해당 날짜의 큐레이션, 없으면 최신."""
+    params: dict[str, object] = {"limit": limit}
+    if date:
+        params["date"] = date
     try:
-        resp = requests.get(_API, params={"limit": limit}, timeout=25)
+        resp = requests.get(_API, params=params, timeout=25)
         resp.raise_for_status()
         items = resp.json()
     except (requests.RequestException, ValueError) as exc:

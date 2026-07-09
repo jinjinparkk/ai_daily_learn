@@ -51,7 +51,7 @@ def _today(cfg: Config) -> str:
     return datetime.now(ZoneInfo(cfg.timezone)).strftime("%Y-%m-%d")
 
 
-def _build_paper_pool(cfg: Config, seen: set[str]) -> list[dict]:
+def _build_paper_pool(cfg: Config, seen: set[str], date_str: str) -> list[dict]:
     """중요도(HF 추천수) 우선 + arXiv 신선도 보충 + 이미 다룬 논문 제외."""
     pool: list[dict] = []
     used: set[str] = set()
@@ -66,8 +66,8 @@ def _build_paper_pool(cfg: Config, seen: set[str]) -> list[dict]:
             "url": url, "upvotes": upvotes, "source": source, "keywords": keywords,
         })
 
-    # 1) HF Daily Papers (중요도 순)
-    for p in hf_papers.fetch_daily_papers(cfg.hf_limit):
+    # 1) HF Daily Papers (해당 날짜의 중요도 순 큐레이션)
+    for p in hf_papers.fetch_daily_papers(cfg.hf_limit, date=date_str):
         add(p.title, p.authors, p.summary, p.url, p.upvotes, "HuggingFace", p.keywords)
 
     # 2) 부족하면 arXiv 최신으로 보충
@@ -82,8 +82,8 @@ def _build_paper_pool(cfg: Config, seen: set[str]) -> list[dict]:
     return pool[: cfg.paper_pool]
 
 
-def collect(cfg: Config, seen: set[str]) -> dict:
-    papers = _build_paper_pool(cfg, seen)
+def collect(cfg: Config, seen: set[str], date_str: str) -> dict:
+    papers = _build_paper_pool(cfg, seen, date_str)
     news = rss_client.fetch_news(RSS_FEEDS)
     repos = github_client.fetch_trending(cfg.github_topics, cfg.github_token)
     return {
@@ -100,7 +100,7 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
 
     log.info("=== AI Daily Learn : %s ===", date_str)
     seen = seen_mod.load_seen(cfg.site_dir)
-    raw = collect(cfg, seen)
+    raw = collect(cfg, seen, date_str)
 
     raw_path = cfg.data_dir / f"{date_str}_raw.json"
     raw_path.write_text(json.dumps(raw, ensure_ascii=False, indent=2), encoding="utf-8")

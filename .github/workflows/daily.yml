@@ -4,7 +4,17 @@ on:
   schedule:
     # 매일 KST 08:00 (UTC 23:00 전날)
     - cron: "0 23 * * *"
-  workflow_dispatch: {}       # 수동 실행 허용
+  workflow_dispatch:          # 수동 실행 허용
+    inputs:
+      dates:
+        description: "재생성할 날짜(쉼표구분, 예: 2026-07-08,2026-07-09). 비우면 오늘 1건"
+        required: false
+        default: ""
+      reset_seen:
+        description: "중복추적(seen) 초기화 후 재생성"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write             # site/ 커밋
@@ -33,7 +43,20 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AIDL_MODEL: ${{ vars.AIDL_MODEL || 'claude-opus-4-8' }}
-        run: python -m src
+          DATES: ${{ inputs.dates }}
+          RESET_SEEN: ${{ inputs.reset_seen }}
+        run: |
+          if [ "$RESET_SEEN" = "true" ]; then
+            echo "중복추적 초기화"; rm -f site/seen_papers.json
+          fi
+          if [ -n "$DATES" ]; then
+            IFS=',' read -ra DS <<< "$DATES"
+            for d in "${DS[@]}"; do
+              echo "=== 재생성: $d ==="; python -m src --date "$(echo "$d" | xargs)"
+            done
+          else
+            python -m src
+          fi
 
       - name: Commit generated site
         run: |
