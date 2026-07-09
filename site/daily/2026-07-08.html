@@ -51,6 +51,16 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
   padding:2px 6px;background:var(--pill);border-radius:5px;margin-top:3px}
 .bi .en .flag{color:var(--accent)} .bi .ko .flag{color:var(--accent2)}
 .biwrap{margin:6px 0}
+/* 용어 툴팁: 영어 단어에 hover/tap → 뜻 표시 */
+.tip{border-bottom:1px dotted var(--accent);cursor:help;position:relative;outline:none}
+.tip::after{content:attr(data-tip);position:absolute;left:0;bottom:135%;
+  background:#0b0d12;color:var(--text);border:1px solid var(--accent);
+  padding:6px 10px;border-radius:7px;font-size:13px;line-height:1.5;font-weight:400;
+  width:max-content;max-width:280px;white-space:normal;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+  opacity:0;visibility:hidden;transform:translateY(4px);transition:.12s;
+  pointer-events:none;z-index:20}
+.tip:hover::after,.tip:focus::after{opacity:1;visibility:visible;transform:translateY(0)}
 .paper{padding:16px 0;border-bottom:1px solid var(--line)}
 .paper:last-child{border-bottom:none;padding-bottom:0}
 .paper .pt{font-weight:700;font-size:16px}
@@ -102,17 +112,17 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
 <main class="wrap">
 <div class="hero">
   <div class="date">2026-07-08</div>
-  <div class="headline">월드 모델, 효율적 어텐션, 그리고 스스로 진화하는 에이전트의 부상</div>
-  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">World Models, Efficient Attention, and the Rise of Self-Evolving Agents</div>
+  <div class="headline">월드 모델, 에이전트, 효율적인 LLM이 주목받다</div>
+  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">World Models, Agents, and Efficient LLMs Take Center Stage</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Today&#x27;s research spotlight falls on generative world models for games and robots, smarter attention for long contexts, and agents that improve their own skills.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘의 연구 하이라이트는 게임과 로봇을 위한 생성형 월드 모델, 긴 문맥을 위한 더 똑똑한 어텐션, 그리고 스스로 능력을 개선하는 에이전트에 맞춰져 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Today&#x27;s research spotlight falls on two big themes: generative world models for games and robots, and smarter, cheaper ways to run large language models.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘의 연구는 두 가지 큰 주제에 집중됩니다. 게임과 로봇을 위한 생성형 월드 모델, 그리고 대규모 언어 모델을 더 똑똑하고 저렴하게 실행하는 방법입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>On the industry side, OpenAI launched GPT-Live voice models and Google expanded managed agents in the Gemini API.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>업계에서는 OpenAI가 GPT-Live 음성 모델을 출시했고, 구글은 Gemini API의 관리형 에이전트 기능을 확장했습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>On the industry side, agent frameworks and &#x27;managed agents&#x27; are becoming a standard product offering from major labs.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>산업 측면에서는 에이전트 프레임워크와 &#x27;관리형 에이전트&#x27;가 주요 연구소들의 표준 제품으로 자리 잡고 있습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Our fundamentals lesson explains LLM agents and tool use, a concept that ties many of today&#x27;s stories together.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘의 기초 강의에서는 LLM 에이전트와 도구 사용을 설명하는데, 이는 오늘의 여러 소식을 하나로 묶어주는 개념입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Our fundamentals lesson explains how LLM agents actually use external tools to get things done.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘의 기초 강의에서는 LLM 에이전트가 실제로 외부 도구를 사용해 일을 처리하는 방식을 설명합니다.</span></div>
 </div></div>
 </div>
 <section class="block fund">
@@ -120,269 +130,251 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
   <div class="term">LLM 에이전트와 도구 사용 <span style="color:var(--muted);font-weight:600;font-size:16px">LLM Agents &amp; Tool Use</span></div>
   <div class="sublabel">이게 뭐야? · What is it</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An LLM agent is a language model that can plan actions, call external tools, and use the results to reach a goal, rather than just producing one block of text.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>LLM 에이전트는 단순히 한 덩어리의 텍스트만 생성하는 것이 아니라, 행동을 계획하고 외부 도구를 호출하며 그 결과를 활용해 목표에 도달하는 언어 모델입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An LLM agent is a language model that can plan actions, call external tools, and use the results to reach a goal, rather than just answering in one shot.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>LLM 에이전트는 한 번에 답하는 것이 아니라, 행동을 계획하고 외부 도구를 호출하며 그 결과를 활용해 목표에 도달할 수 있는 언어 모델입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Tool use means the model can trigger things like web search, a calculator, a code runner, or a database query when it needs help.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>도구 사용이란 모델이 도움이 필요할 때 웹 검색, 계산기, 코드 실행기, 데이터베이스 질의 같은 것들을 실행할 수 있다는 뜻입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>&#x27;Tool use&#x27; means the model can trigger functions like web search, a calculator, a code runner, or a database query.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>&#x27;도구 사용&#x27;이란 모델이 웹 검색, 계산기, 코드 실행기, 데이터베이스 조회 같은 기능을 실행할 수 있다는 의미입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This turns a passive text generator into an active system that can take steps in the world.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이로써 수동적인 텍스트 생성기가 세상에서 실제로 단계를 밟아 나가는 능동적인 시스템으로 바뀝니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This turns a static text predictor into a system that can act on the world and gather fresh information.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이를 통해 정적인 텍스트 예측기가 세상에 영향을 주고 최신 정보를 수집할 수 있는 시스템으로 바뀝니다.</span></div>
 </div></div>
   <div class="sublabel">작동 원리 · How it works</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>First, the agent receives a goal and reasons about what it needs to do next.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>먼저 에이전트는 목표를 받고 다음에 무엇을 해야 할지 추론합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The model first receives a goal and a list of available tools with descriptions of what each one does.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모델은 먼저 목표와, 각 도구가 무엇을 하는지 설명이 담�a긴 사용 가능한 도구 목록을 받습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It then decides whether to answer directly or to call a tool, choosing the right tool and its inputs.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>그다음 직접 답할지 아니면 도구를 호출할지 결정하고, 적절한 도구와 그 입력값을 고릅니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It reasons about the task and decides whether it needs a tool or can answer directly.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모델은 작업에 대해 추론하고, 도구가 필요한지 아니면 바로 답할 수 있는지 판단합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The tool runs and returns a result, such as a search snippet or a computed number, which is fed back into the model.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>도구가 실행되어 검색 결과나 계산된 숫자 같은 결과를 반환하고, 이는 다시 모델에 입력됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>When a tool is needed, the model outputs a structured request, such as the tool&#x27;s name and its arguments.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>도구가 필요할 때 모델은 도구의 이름과 인자 같은 구조화된 요청을 출력합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The agent observes this result, updates its plan, and may call another tool in a loop until the task is done.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>에이전트는 이 결과를 관찰하고 계획을 갱신하며, 작업이 끝날 때까지 반복적으로 또 다른 도구를 호출할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An external system runs the tool and feeds the result back into the model as new context.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>외부 시스템이 그 도구를 실행하고, 결과를 새로운 맥락으로 모델에 다시 전달합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This observe-think-act cycle is often called a ReAct loop, and memory can be added so the agent remembers earlier steps.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 관찰-사고-행동 순환은 흔히 ReAct 루프라고 불리며, 메모리를 추가하면 에이전트가 이전 단계를 기억할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The model repeats this loop of reasoning, acting, and observing until the task is complete.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모델은 추론하고, 행동하고, 관찰하는 이 순환을 작업이 끝날 때까지 반복합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Standards like MCP (Model Context Protocol) make it easier to connect many tools to an agent in a consistent way.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>MCP(모델 컨텍스트 프로토콜) 같은 표준은 여러 도구를 일관된 방식으로 에이전트에 연결하기 쉽게 해줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Memory can be added so the agent remembers earlier steps across a long task.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>긴 작업 동안 에이전트가 이전 단계를 기억하도록 메모리를 추가할 수도 있습니다.</span></div>
 </div></div>
   <div class="why"><strong>🧩 비유로 이해 · Analogy</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Think of the LLM as a smart office worker: instead of guessing every answer, they pick up the phone, open a spreadsheet, or search the archive, then combine those results to finish the job.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>LLM을 유능한 사무직 직원이라고 생각해 보세요. 모든 답을 추측하는 대신 전화를 걸고, 스프레드시트를 열고, 자료실을 검색한 뒤 그 결과들을 종합해 일을 마무리하는 것과 같습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Think of the agent as a smart assistant with a phone: it doesn&#x27;t know everything, but it knows who to call and how to use apps to find the answer and finish the job.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>에이전트를 스마트폰을 든 똑똑한 비서라고 생각해 보세요. 모든 것을 알지는 못하지만, 누구에게 연락하고 어떤 앱을 써야 답을 찾아 일을 끝낼 수 있는지 압니다.</span></div>
 </div></div>
   <div class="sublabel">기본 용어 · Key terms</div>
-  <div class="terms"><div class="t"><span class="tt2">Tool / Function Calling</span><span>모델이 외부 기능(검색, 코드 실행 등)을 정해진 형식으로 호출하는 기능</span></div><div class="t"><span class="tt2">ReAct loop</span><span>추론(Reason)과 행동(Act)을 번갈아 반복하는 에이전트 실행 방식</span></div><div class="t"><span class="tt2">MCP (Model Context Protocol)</span><span>에이전트와 외부 도구·데이터를 표준 방식으로 연결하는 프로토콜</span></div><div class="t"><span class="tt2">Long-horizon task</span><span>여러 단계에 걸쳐 오래 진행되는 복잡한 작업</span></div><div class="t"><span class="tt2">Episodic memory</span><span>에이전트가 이전 상호작용이나 사건을 저장해 나중에 활용하는 기억</span></div></div>
+  <div class="terms"><div class="t"><span class="tt2">Tool Calling (도구 호출)</span><span>모델이 외부 함수나 API를 실행하도록 구조화된 요청을 생성하는 기능.</span></div><div class="t"><span class="tt2">ReAct Loop (추론-행동 순환)</span><span>추론(Reasoning)과 행동(Acting)을 번갈아 반복하며 문제를 푸는 에이전트 패턴.</span></div><div class="t"><span class="tt2">MCP (Model Context Protocol)</span><span>모델이 외부 도구와 데이터 소스에 표준화된 방식으로 연결하도록 돕는 프로토콜.</span></div><div class="t"><span class="tt2">Long-Horizon Task (장기 과제)</span><span>여러 단계를 거쳐야 완료되는, 긴 흐름의 복잡한 작업.</span></div><div class="t"><span class="tt2">Episodic Memory (일화 기억)</span><span>에이전트가 과거 상호작용과 사건을 저장해 두었다가 나중에 참고하는 기억 구조.</span></div></div>
 </section>
 <section class="block concept">
   <h2>오늘의 핵심 개념 · Key Concept</h2>
-  <div class="term">생성형 월드 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">Generative World Model</span></div>
+  <div class="term">생성형 월드 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">Generative World Models</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A world model learns to predict how an environment will change in response to actions.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>월드 모델은 어떤 행동에 반응해 환경이 어떻게 변할지를 예측하도록 학습합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A world model learns to predict what a scene or environment will look like next, given the current state and an action.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>월드 모델은 현재 상태와 어떤 행동이 주어졌을 때, 장면이나 환경이 다음에 어떻게 변할지 예측하는 법을 학습합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A generative world model goes further by synthesizing the next observations, such as future video frames, directly.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>생성형 월드 모델은 여기서 더 나아가 미래의 영상 프레임 같은 다음 관측을 직접 생성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Generative world models create these future observations directly, often as video frames, instead of hand-coding every rule.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>생성형 월드 모델은 모든 규칙을 일일이 코딩하는 대신, 이러한 미래 관측값을 주로 비디오 프레임 형태로 직접 생성합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>In games, this lets players interact with a world that is created on the fly instead of hand-built by developers.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>게임에서는 개발자가 일일이 만든 세계 대신 즉석에서 생성되는 세계와 플레이어가 상호작용할 수 있게 됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>For games, this means playable worlds can be synthesized on the fly as the user interacts with them.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>게임에서는 사용자가 상호작용하는 즉시 플레이 가능한 세계가 실시간으로 만들어질 수 있음을 뜻합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>In robotics, predicting future states, depth, and motion narrows the gap between imagining an outcome and choosing a real action.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>로보틱스에서는 미래 상태, 깊이, 움직임을 예측함으로써 결과를 상상하는 것과 실제 행동을 고르는 것 사이의 간극을 좁힙니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>For robots, richer signals like depth and motion make predictions closer to the physical actions a robot must take.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>로봇에게는 깊이와 움직임 같은 더 풍부한 신호가 예측을 로봇이 실제로 취해야 할 물리적 행동에 더 가깝게 만듭니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Because collecting real robot data is slow, world models can act as simulators that generate training trajectories cheaply.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>실제 로봇 데이터 수집은 느리기 때문에, 월드 모델은 훈련용 궤적을 저렴하게 생성하는 시뮬레이터 역할을 할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This lets teams train policies from generated data instead of only costly real-world demonstrations.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>덕분에 값비싼 실제 시연에만 의존하지 않고, 생성된 데이터로 정책을 학습시킬 수 있습니다.</span></div>
 </div></div>
   <div class="why"><strong>왜 지금? · Why now</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Several of today&#x27;s top papers—AlayaWorld, RynnWorld-4D, and RynnWorld-Teleop—all build on this idea, signaling that world models are becoming a major research frontier.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘 상위권 논문인 AlayaWorld, RynnWorld-4D, RynnWorld-Teleop이 모두 이 아이디어 위에 세워져 있어, 월드 모델이 주요 연구 최전선이 되고 있음을 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Several of today&#x27;s top papers build world models for both entertainment and robotics, signaling that this approach is maturing fast.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘 상위 논문 중 여러 편이 엔터테인먼트와 로보틱스 양쪽에서 월드 모델을 구축하고 있어, 이 접근법이 빠르게 성숙하고 있음을 보여줍니다.</span></div>
 </div></div>
 </section>
 <section class="block"><h2>주요 논문 해설 · Papers</h2><div class="paper">
-  <div class="pt">AlayaWorld: 장기 지평의 플레이 가능한 비디오 월드 생성<span class="en">AlayaWorld: Long-Horizon and Playable Video World Generation</span></div>
+  <div class="pt">AlayaWorld: 장기 시야의 플레이 가능한 비디오 월드 생성<span class="en">AlayaWorld: Long-Horizon and Playable Video World Generation</span></div>
   <div><span class="pill d중급">중급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>AlayaWorld is an open-source framework that generates interactive game worlds on the fly using a video world model.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 비디오 월드 모델을 사용해 상호작용형 게임 세계를 즉석에서 생성하는 오픈소스 프레임워크입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>AlayaWorld is a full-stack open-source framework for building interactive, generative game worlds.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 상호작용 가능한 생성형 게임 세계를 구축하기 위한 풀스택 오픈소스 프레임워크입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Instead of hand-authoring every asset, it autoregressively predicts future frames based on the current state and user actions.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>모든 에셋을 손으로 제작하는 대신, 현재 상태와 사용자 행동을 바탕으로 미래 프레임을 자기회귀적으로 예측합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Instead of hand-authoring every element, it autoregressively generates future frames based on the world state and user actions.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모든 요소를 수작업으로 만드는 대신, 세계 상태와 사용자 행동을 바탕으로 미래 프레임을 자기회귀적으로 생성합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It supports real-time actions like combat, spell casting, and summoning, and covers the full pipeline from data to deployment.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>전투, 주문 시전, 소환 같은 실시간 행동을 지원하며, 데이터에서 배포까지 전체 파이프라인을 아우릅니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It supports real-time actions like combat, spell casting, and summoning, and covers the whole pipeline from data to deployment.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>전투, 주문 시전, 소환 같은 실시간 행동을 지원하며, 데이터부터 배포까지 전체 파이프라인을 아우릅니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It hints at a future where playable, customizable worlds are generated by models rather than assembled by hand.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>손으로 조립하는 대신 모델이 플레이 가능하고 맞춤화된 세계를 생성하는 미래를 시사합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It shows how AI could replace expensive traditional game production with generated, endlessly customizable worlds.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>값비싼 전통적 게임 제작을, 생성되고 무한히 커스터마이징 가능한 세계로 대체할 가능성을 보여줍니다.</span></div>
 </div></div>
   <div><a href="https://arxiv.org/abs/2607.06291" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">RynnWorld-4D: 로봇 조작을 위한 4D 체화형 월드 모델<span class="en">RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation</span></div>
+  <div class="pt">RynnWorld-4D: 로봇 조작을 위한 4D 임바디드 월드 모델<span class="en">RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This model jointly generates future RGB frames, depth maps, and optical flow from one RGB-D image and a language instruction.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 모델은 하나의 RGB-D 이미지와 언어 지시로부터 미래 RGB 프레임, 깊이 맵, 광학 흐름을 함께 생성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>RynnWorld-4D jointly predicts future RGB frames, depth maps, and optical flow from a single RGB-D image and a language instruction.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>RynnWorld-4D는 단일 RGB-D 이미지와 언어 지시로부터 미래의 RGB 프레임, 깊이 맵, 광학 흐름을 함께 예측합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Combining appearance, geometry, and motion gives a representation much closer to the low-level actions a robot must produce.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>외형, 기하 구조, 움직임을 결합하면 로봇이 만들어내야 하는 저수준 행동에 훨씬 가까운 표현을 얻습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Combining appearance, geometry, and motion gives a representation much closer to a robot&#x27;s actual control actions.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>외형, 기하 구조, 움직임을 결합하면 로봇의 실제 제어 행동에 훨씬 가까운 표현을 얻습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It is trained on a large dataset of over 254 million frames from egocentric human and robot sources.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>1인칭 시점의 인간과 로봇 데이터에서 나온 2억 5,400만 프레임 이상의 대규모 데이터셋으로 학습됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It is trained on a large dataset of over 254 million frames to support scalable learning.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>확장 가능한 학습을 위해 2억 5천만 프레임이 넘는 대규모 데이터셋으로 훈련되었습니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It shows how multi-modal prediction can bridge world modeling and robot policy learning.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>다중 모달 예측이 월드 모델링과 로봇 정책 학습을 어떻게 이어줄 수 있는지 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It narrows the gap between predicting the world and learning robot policies, a key challenge in embodied AI.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>세계를 예측하는 것과 로봇 정책을 학습하는 것 사이의 간극을 좁혀, 임바디드 AI의 핵심 난제를 다룹니다.</span></div>
 </div></div>
   <div><a href="https://arxiv.org/abs/2607.06559" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
   <div class="pt">제대로 된 계층적 희소 어텐션: 무한 문맥 모델링을 향하여<span class="en">Hierarchical Sparse Attention Done Right: Toward Infinite Context Modeling</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Dense attention is limited by quadratic cost and poor extrapolation to longer contexts.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>밀집 어텐션은 제곱에 비례하는 비용과 더 긴 문맥으로의 부실한 외삽 성능에 발목이 잡힙니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Dense attention is limited by its quadratic cost and poor handling of very long contexts.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>밀집 어텐션은 제곱에 비례하는 비용과 매우 긴 문맥 처리의 어려움 때문에 한계가 있습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>HiLS Attention learns which text chunks to attend to end-to-end using the language-modeling loss.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>HiLS 어텐션은 언어 모델링 손실을 이용해 어떤 텍스트 청크에 주목할지를 종단간으로 학습합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>HiLS Attention learns which chunks of text to attend to, trained end-to-end with the language-modeling loss.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>HiLS 어텐션은 언어 모델링 손실로 종단 간 학습되어, 어느 텍스트 청크에 집중할지 스스로 배웁니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It matches full attention in-domain and extrapolates beyond 64x the training context length with 90% retrieval accuracy.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>학습 도메인 내에서는 완전 어텐션과 대등하고, 학습 문맥 길이의 64배 이상으로 90% 검색 정확도를 유지하며 외삽합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It matches full attention on normal lengths and extrapolates over 64x the training context with high retrieval accuracy.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>일반 길이에서는 전체 어텐션과 맞먹고, 훈련 문맥의 64배 이상을 높은 검색 정확도로 외삽합니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Better sparse attention is a practical path toward very long contexts without exploding compute.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>더 나은 희소 어텐션은 연산량을 폭증시키지 않고도 매우 긴 문맥으로 가는 현실적인 경로입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Efficient long-context attention makes it practical to feed models huge documents without exploding compute.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>효율적인 장문맥 어텐션은 연산량을 폭증시키지 않고도 방대한 문서를 모델에 넣는 것을 실용화합니다.</span></div>
 </div></div>
   <div><a href="https://arxiv.org/abs/2607.02980" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
   <div class="pt">Gemma 4 기술 보고서<span class="en">Gemma 4 Technical Report</span></div>
-  <div><span class="pill d중급">중급</span></div>
+  <div><span class="pill d입문">입문</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Gemma 4 is a new family of open-weight, natively multimodal models ranging from 2.3B to 31B parameters.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Gemma 4는 2.3B에서 31B 파라미터에 이르는 오픈 웨이트의 기본 멀티모달 모델 제품군입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Gemma 4 is a new family of <span class="tip" tabindex="0" data-tip="오픈 웨이트 (모델 가중치가 공개된)">open-weight</span>, natively multimodal models ranging from 2.3B to 31B parameters.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Gemma 4는 2.3B에서 31B 파라미터에 이르는, 네이티브 멀티모달 오픈 웨이트 모델 제품군입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It offers both dense and Mixture-of-Experts architectures, plus a unified encoder-free 12B model that reads raw audio and image patches.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>밀집 구조와 전문가 혼합(MoE) 구조를 모두 제공하며, 원시 오디오와 이미지 패치를 직접 읽는 통합 인코더 프리 12B 모델도 포함합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It uses both dense and Mixture-of-Experts architectures, plus improved vision and audio encoders.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>밀집 구조와 전문가 혼합(MoE) 구조를 함께 쓰며, 개선된 비전 및 오디오 인코더를 탑재했습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A &#x27;thinking mode&#x27; lets the models generate reasoning traces before answering.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A &#x27;thinking mode&#x27; lets the model generate reasoning traces before answering.</span></div>
   <div class="ko"><span class="flag">KO</span><span>&#x27;사고 모드&#x27;는 모델이 답하기 전에 추론 과정을 생성하도록 합니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Strong open-weight multimodal models let more developers build capable systems without frontier-scale budgets.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>강력한 오픈 웨이트 멀티모달 모델은 최전선 규모의 예산 없이도 더 많은 개발자가 유능한 시스템을 만들 수 있게 합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Strong <span class="tip" tabindex="0" data-tip="오픈 웨이트 (모델 가중치가 공개된)">open-weight</span> models like Gemma 4 give developers frontier-level capability they can run and inspect themselves.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Gemma 4 같은 강력한 오픈 웨이트 모델은 개발자가 직접 실행하고 살펴볼 수 있는 최전선 수준의 성능을 제공합니다.</span></div>
 </div></div>
   <div><a href="https://arxiv.org/abs/2607.02770" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">SkillOpt-Lite: 한 줄의 감각으로 이루는 더 낫고 빠른 에이전트 자기 진화<span class="en">SkillOpt-Lite: Better and Faster Agent Self-evolution via One Line of Vibe</span></div>
-  <div><span class="pill d고급">고급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The paper asks what a minimal, justified pipeline for optimizing an agent&#x27;s skills should look like.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 논문은 에이전트의 능력을 최적화하는 최소한의 정당한 파이프라인이 어떤 모습이어야 하는지를 묻습니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It frames skill optimization as zeroth-order optimization and treats skill trajectories as interpretable debugging feedback.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>능력 최적화를 0차 최적화로 정식화하고, 능력 궤적을 해석 가능한 디버깅 피드백으로 취급합니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>SkillOpt-Lite outperforms the full version and integrates into production coding agents like VSCode Copilot.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>SkillOpt-Lite는 전체 버전을 능가하며 VSCode Copilot 같은 실사용 코딩 에이전트에 통합됩니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It points to lightweight, practical ways for agents to keep improving their own skills over time.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>에이전트가 시간이 지나며 스스로 능력을 계속 개선하는 가볍고 실용적인 방법을 제시합니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.03451" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
   <div class="pt">TurnOPD: 효율적인 장기 에이전트 훈련을 위한 턴 인식 온폴리시 증류<span class="en">TurnOPD: Making On-Policy Distillation Turn-Aware for Efficient Long-Horizon Agent Training</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>On-policy distillation trains a student agent by matching a stronger teacher on the student&#x27;s own trajectories.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>온폴리시 증류는 학생 자신의 궤적에서 더 강한 교사를 따라 하도록 학생 에이전트를 훈련합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>On-policy <span class="tip" tabindex="0" data-tip="증류 (큰 교사 모델의 지식을 작은 학생 모델로 옮기는 기법)">distillation</span> trains a student agent to match a stronger teacher on the student&#x27;s own trajectories.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>온폴리시 증류는 학생 에이전트 자신의 경로 위에서 더 강한 교사를 모방하도록 학생을 훈련합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>TurnOPD budgets training at the turn level so deeper decision turns are not left under-trained.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>TurnOPD는 턴 단위로 훈련 자원을 배분해 더 깊은 결정 턴이 학습 부족 상태로 남지 않게 합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The authors find that full rollouts waste time on late, low-value turns and under-train deeper decision steps.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>저자들은 전체 롤아웃이 가치가 낮은 후반 턴에 시간을 낭비하고, 더 깊은 의사결정 단계를 충분히 훈련하지 못함을 발견했습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>On ALFWorld, WebShop, and Multi-Hop Search it achieves higher accuracy under equal training time.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>ALFWorld, WebShop, 다중 홉 검색에서 동일한 훈련 시간 대비 더 높은 정확도를 달성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>TurnOPD budgets training at the turn level, improving accuracy under the same wall-clock time.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>TurnOPD는 턴 단위로 훈련 예산을 배분해, 같은 실제 소요 시간에서 정확도를 높입니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Efficient training of long-horizon agents is key to making multi-step assistants reliable and affordable.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>장기 에이전트를 효율적으로 훈련하는 것은 다단계 어시스턴트를 신뢰할 수 있고 저렴하게 만드는 핵심입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It makes training <span class="tip" tabindex="0" data-tip="장기 시야의 (많은 단계를 거쳐야 하는 긴 작업 관련)">long-horizon</span> agents cheaper and more focused, a practical bottleneck for real deployments.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>장기 에이전트 훈련을 더 저렴하고 집중적으로 만들어, 실제 배포의 현실적 병목을 해소합니다.</span></div>
 </div></div>
   <div><a href="https://arxiv.org/abs/2607.05804" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div></section>
 <section class="block"><h2>트렌드 인사이트 · Trends</h2><div class="trend">
-  <div class="tt"><a href="https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/" target="_blank" rel="noopener">구글, Gemini API의 관리형 에이전트 확장</a></div>
-  <div class="src">Google expands managed agents in the Gemini API · Google AI Blog</div>
+  <div class="tt"><a href="https://blog.google/innovation-and-ai/technology/developers-tools/expanding-managed-agents-gemini-api/" target="_blank" rel="noopener">Gemini API에서 관리형 에이전트 확장</a></div>
+  <div class="src">Managed Agents Expand in the Gemini API · Google AI Blog</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Google added background tasks and remote MCP support so agents can run longer jobs and connect to external tools.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>구글은 백그라운드 작업과 원격 MCP 지원을 추가해 에이전트가 더 긴 작업을 수행하고 외부 도구에 연결할 수 있게 했습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Google is adding background tasks and remote <span class="tip" tabindex="0" data-tip="모델이 외부 도구와 데이터 소스에 표준화된 방식으로 연결하도록 돕는 프로토콜.">MCP</span> support to its managed agents in the Gemini API.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>구글은 Gemini API의 관리형 에이전트에 백그라운드 작업과 원격 MCP 지원을 추가하고 있습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This reflects how tool use and standardized protocols are becoming core platform features, not add-ons.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이는 도구 사용과 표준화된 프로토콜이 부가 기능이 아니라 핵심 플랫폼 기능이 되고 있음을 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This signals a move toward agents that run autonomously and connect to many external tools through standard protocols.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이는 에이전트가 자율적으로 실행되고 표준 프로토콜을 통해 여러 외부 도구에 연결되는 방향으로의 전환을 보여줍니다.</span></div>
 </div></div>
 </div><div class="trend">
-  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">지능이 공짜인 시대, 그다음은? 에이전트를 위한 데이터 시스템</a></div>
-  <div class="src">Intelligence is Free, Now What? Data Systems for Agents · Berkeley AI Research (BAIR)</div>
+  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">지능이 저렴해지고 있다 — 다음 전선은 데이터 시스템</a></div>
+  <div class="src">Intelligence Is Getting Cheap — Data Systems Are the Next Frontier · Berkeley AI Research (BAIR)</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>BAIR notes inference prices have fallen dramatically, sometimes 900x per year, making capable AI cheap.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>BAIR은 추론 비용이 극적으로 하락해 때로는 연간 900배까지 떨어져 유능한 AI가 저렴해졌다고 짚습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Berkeley researchers note inference prices have fallen roughly 50x per year, making capable AI nearly free.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>버클리 연구진은 추론 비용이 연간 약 50배씩 떨어져, 유능한 AI가 거의 무료에 가까워지고 있다고 지적합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>As intelligence gets cheap, the bottleneck shifts to data systems that agents can query, produce, and govern.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>지능이 저렴해지면 병목은 에이전트가 질의하고 생성하며 관리할 수 있는 데이터 시스템으로 옮겨갑니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The new challenge becomes building data systems for, of, and by agents rather than just bigger models.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이제 새로운 과제는 더 큰 모델이 아니라, 에이전트를 위한, 에이전트의, 에이전트에 의한 데이터 시스템을 구축하는 것입니다.</span></div>
 </div></div>
 </div><div class="trend">
-  <div class="tt"><a href="https://openai.com/index/introducing-gpt-live" target="_blank" rel="noopener">OpenAI, GPT-Live 음성 모델 공개</a></div>
-  <div class="src">OpenAI introduces GPT-Live voice models · OpenAI Blog</div>
+  <div class="tt"><a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations" target="_blank" rel="noopener">코딩 벤치마크에 대한 정밀 검증</a></div>
+  <div class="src">Coding Benchmarks Under Scrutiny · OpenAI Blog</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>OpenAI released a new generation of voice models for more natural human-AI interaction, now powering ChatGPT Voice.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>OpenAI는 더 자연스러운 인간-AI 상호작용을 위한 새 세대 음성 모델을 출시했으며, 이는 ChatGPT Voice를 구동합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>OpenAI&#x27;s analysis flags reliability issues in the popular SWE-Bench Pro coding benchmark.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>OpenAI의 분석은 인기 있는 코딩 벤치마크 SWE-Bench Pro의 신뢰성 문제를 지적합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Voice is becoming a first-class interface as latency and naturalness continue to improve.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>지연 시간과 자연스러움이 계속 개선되면서 음성이 일등급 인터페이스로 자리 잡고 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It is a reminder that benchmark scores can mislead if the test itself has flaws.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이는 테스트 자체에 결함이 있으면 벤치마크 점수가 오해를 부를 수 있다는 점을 일깨웁니다.</span></div>
 </div></div>
 </div></section>
 <section class="block"><h2>주목할 오픈소스 · Tools</h2><div class="tool">
   <div class="tt"><a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener">omnigent</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An open-source agent framework and meta-harness that orchestrates Claude Code, Codex, Cursor, and custom agents with policy enforcement and sandboxing.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor, 사용자 정의 에이전트를 정책 적용과 샌드박싱과 함께 조율하는 오픈소스 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An open-source agent framework and meta-harness to orchestrate Claude Code, Codex, Cursor, and custom agents with shared policies and sandboxing.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor, 커스텀 에이전트를 공통 정책과 샌드박싱으로 조율하는 오픈소스 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
 </div>
 </div><div class="tool">
-  <div class="tt"><a href="https://github.com/vercel/eve" target="_blank" rel="noopener">eve (vercel)</a></div>
+  <div class="tt"><a href="https://github.com/vercel/eve" target="_blank" rel="noopener">eve (Vercel)</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A TypeScript framework from Vercel focused on building agents.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>에이전트 구축에 초점을 맞춘 Vercel의 TypeScript 프레임워크입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A TypeScript framework from Vercel focused on building AI agents.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>AI 에이전트 구축에 초점을 맞춘 Vercel의 TypeScript 프레임워크입니다.</span></div>
 </div>
 </div><div class="tool">
-  <div class="tt"><a href="https://github.com/ibrahimqureshae/mdflux" target="_blank" rel="noopener">mdflux</a></div>
+  <div class="tt"><a href="https://github.com/buynao/aipath" target="_blank" rel="noopener">aipath</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A local-first desktop app that turns documents, including scanned PDFs, into clean AI-ready Markdown while using far fewer tokens than vision models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스캔된 PDF를 포함한 문서를 깔끔한 AI 친화 마크다운으로 변환하며, 비전 모델보다 훨씬 적은 토큰을 사용하는 로컬 우선 데스크톱 앱입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An interactive, math-free AI general education course with 30 lessons for beginners.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>수학 없이 배우는, 초보자를 위한 30개 강의 구성의 인터랙티브 AI 교양 과정입니다.</span></div>
 </div>
 </div></section>
-<section class="block quiz"><h2>오늘의 퀴즈 · Quiz (클릭해서 정답 확인)</h2><div class="q" data-answer="1">
-  <div class="qq">Q. LLM 에이전트에서 &#x27;도구 사용&#x27;이 주로 가능하게 하는 것은 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">In an LLM agent, what does &#x27;tool use&#x27; primarily enable?</span></div>
-  <button class="opt" type="button">Producing a single long text answer without any external help</button><button class="opt" type="button">Calling external functions like search or a code runner and using their results</button><button class="opt" type="button">Training the model faster on a GPU</button><button class="opt" type="button">Compressing the model to a smaller size</button>
-  <div class="exp">✅ 도구 사용은 에이전트가 검색이나 코드 실행 같은 외부 기능을 호출하고 그 결과를 다시 추론에 반영하도록 합니다.<br><span style="color:#8a93a2">Tool use lets the agent call external functions such as search or code execution and feed the results back into its reasoning.</span></div>
+<section class="block quiz"><h2>오늘의 퀴즈 · Quiz (클릭해서 정답 확인)</h2><div class="q" data-answer="0">
+  <div class="qq">Q. LLM 에이전트를 단순한 챗봇과 구분 짓는 핵심 능력은 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the core capability that distinguishes an LLM agent from a plain chatbot?</span></div>
+  <button class="opt" type="button">It can plan actions and call external tools to reach a goal</button><button class="opt" type="button">It always responds faster</button><button class="opt" type="button">It never makes mistakes</button><button class="opt" type="button">It uses fewer parameters</button>
+  <div class="exp">✅ 에이전트는 한 번에 답하는 대신 계획하고, 도구를 호출하며, 그 결과를 반복적으로 활용합니다.<br><span style="color:#8a93a2">An agent plans, calls tools, and uses the results iteratively, rather than answering in a single pass.</span></div>
 </div><div class="q" data-answer="1">
-  <div class="qq">Q. 생성형 월드 모델의 핵심 아이디어는 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the main idea of a generative world model?</span></div>
-  <button class="opt" type="button">It only classifies static images</button><button class="opt" type="button">It synthesizes future observations conditioned on state and actions</button><button class="opt" type="button">It replaces attention with convolution</button><button class="opt" type="button">It compresses text into embeddings only</button>
-  <div class="exp">✅ 생성형 월드 모델은 현재 상태와 행동을 바탕으로 영상 프레임 같은 미래 관측을 예측하고 생성합니다.<br><span style="color:#8a93a2">A generative world model predicts and synthesizes future observations, such as video frames, based on the current state and actions.</span></div>
+  <div class="qq">Q. RynnWorld-4D 같은 생성형 월드 모델이 RGB 비디오에 깊이와 광학 흐름을 더하는 이유는 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">Why do generative world models like RynnWorld-4D add depth and optical flow to RGB video?</span></div>
+  <button class="opt" type="button">To make videos more colorful</button><button class="opt" type="button">To align appearance with geometry and motion, closer to robot actions</button><button class="opt" type="button">To reduce the number of training frames</button><button class="opt" type="button">To remove the need for any language instruction</button>
+  <div class="exp">✅ 깊이와 움직임을 RGB와 결합하면 로봇의 물리적 제어 행동에 더 잘 맞는 4D 동역학을 포착할 수 있습니다.<br><span style="color:#8a93a2">Combining depth and motion with RGB captures 4D dynamics that better match a robot&#x27;s physical control actions.</span></div>
 </div><div class="q" data-answer="0">
-  <div class="qq">Q. HiLS 어텐션이 밀집 대신 희소 어텐션을 쓰려는 이유는 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">Why does HiLS Attention aim to use sparse instead of dense attention?</span></div>
-  <button class="opt" type="button">Dense attention has quadratic cost and poor long-context extrapolation</button><button class="opt" type="button">Sparse attention is always more accurate on every task</button><button class="opt" type="button">Dense attention cannot run on GPUs</button><button class="opt" type="button">Sparse attention removes the need for training data</button>
-  <div class="exp">✅ 밀집 어텐션은 제곱으로 비용이 커지고 긴 문맥으로의 외삽이 부실하기 때문에, HiLS는 선택된 청크에 주목하도록 학습합니다.<br><span style="color:#8a93a2">Dense attention scales quadratically and extrapolates poorly to longer contexts, so HiLS learns to attend to selected chunks instead.</span></div>
+  <div class="qq">Q. HiLS 어텐션은 어떤 문제를 해결하려 하나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What problem does HiLS Attention aim to solve?</span></div>
+  <button class="opt" type="button">The high cost and poor length extrapolation of dense attention on long contexts</button><button class="opt" type="button">The lack of multimodal support in LLMs</button><button class="opt" type="button">The difficulty of training vision encoders</button><button class="opt" type="button">The slowness of tool calling</button>
+  <div class="exp">✅ HiLS는 품질을 유지하면서 훈련 문맥 길이를 훨씬 넘어 확장하는 청크 단위 희소 어텐션입니다.<br><span style="color:#8a93a2">HiLS is a chunk-wise sparse attention that keeps quality while extending far beyond the training context length.</span></div>
 </div></section>
 <section class="block vocab"><h2>핵심 영어 표현 · Vocabulary</h2><div class="v">
+  <div class="vt">tool use</div>
+  <div class="vm">도구 사용 (모델이 외부 함수·API를 실행하는 능력)</div>
+  <div class="vex"><div class="e">“Tool use lets the model fetch live data instead of guessing.”</div><div class="k">도구 사용 덕분에 모델은 추측하는 대신 실시간 데이터를 가져올 수 있습니다.</div></div>
+</div><div class="v">
   <div class="vt">autoregressive</div>
-  <div class="vm">자기회귀적인, 이전 출력을 바탕으로 다음 것을 순차 생성하는</div>
-  <div class="vex"><div class="e">“The model autoregressively generates future video frames one step at a time.”</div><div class="k">그 모델은 미래 영상 프레임을 한 번에 한 단계씩 자기회귀적으로 생성합니다.</div></div>
+  <div class="vm">자기회귀적인 (이전 출력을 바탕으로 다음 것을 하나씩 생성하는 방식)</div>
+  <div class="vex"><div class="e">“The model autoregressively generates each video frame from the previous state.”</div><div class="k">이 모델은 이전 상태로부터 각 비디오 프레임을 자기회귀적으로 생성합니다.</div></div>
 </div><div class="v">
   <div class="vt">long-horizon</div>
-  <div class="vm">장기 지평의, 여러 단계에 걸쳐 오래 이어지는</div>
-  <div class="vex"><div class="e">“Training agents on long-horizon tasks remains computationally expensive.”</div><div class="k">장기 지평 작업으로 에이전트를 훈련하는 것은 여전히 계산 비용이 큽니다.</div></div>
+  <div class="vm">장기 시야의 (많은 단계를 거쳐야 하는 긴 작업 관련)</div>
+  <div class="vex"><div class="e">“Training long-horizon agents is expensive because tasks span many turns.”</div><div class="k">장기 에이전트 훈련은 작업이 여러 턴에 걸쳐 있어 비용이 큽니다.</div></div>
 </div><div class="v">
   <div class="vt">extrapolate</div>
-  <div class="vm">외삽하다, 학습 범위를 넘어 확장 적용하다</div>
-  <div class="vex"><div class="e">“The method extrapolates beyond 64 times the training context length.”</div><div class="k">그 방법은 학습 문맥 길이의 64배를 넘어 외삽합니다.</div></div>
+  <div class="vm">외삽하다 (학습한 범위를 넘어서까지 일반화하다)</div>
+  <div class="vex"><div class="e">“HiLS can extrapolate to contexts 64 times longer than it was trained on.”</div><div class="k">HiLS는 학습한 것보다 64배 긴 문맥까지 외삽할 수 있습니다.</div></div>
 </div><div class="v">
-  <div class="vt">distillation</div>
-  <div class="vm">증류, 강한 모델의 지식을 더 작은 모델로 옮기는 기법</div>
-  <div class="vex"><div class="e">“On-policy distillation trains a student agent to match a stronger teacher.”</div><div class="k">온폴리시 증류는 더 강한 교사를 따라 하도록 학생 에이전트를 훈련합니다.</div></div>
-</div><div class="v">
-  <div class="vt">encoder-free architecture</div>
-  <div class="vm">인코더 프리 구조, 별도 인코더 없이 원시 입력을 직접 처리하는 구조</div>
-  <div class="vex"><div class="e">“Gemma 4&#x27;s 12B model uses a unified encoder-free architecture for audio and image patches.”</div><div class="k">Gemma 4의 12B 모델은 오디오와 이미지 패치를 위해 통합된 인코더 프리 구조를 사용합니다.</div></div>
+  <div class="vt">open-weight</div>
+  <div class="vm">오픈 웨이트 (모델 가중치가 공개된)</div>
+  <div class="vex"><div class="e">“Gemma 4 is an open-weight model, so developers can run it locally.”</div><div class="k">Gemma 4는 오픈 웨이트 모델이라 개발자가 로컬에서 실행할 수 있습니다.</div></div>
 </div><div class="v">
   <div class="vt">throughput</div>
-  <div class="vm">처리량, 단위 시간당 처리되는 작업의 양</div>
-  <div class="vex"><div class="e">“Speculative decoding aims to improve inference throughput in serving systems.”</div><div class="k">추측 디코딩은 서빙 시스템에서 추론 처리량을 개선하는 것을 목표로 합니다.</div></div>
+  <div class="vm">처리량 (단위 시간당 처리되는 작업량)</div>
+  <div class="vex"><div class="e">“The new decoding method improves throughput in high-concurrency serving.”</div><div class="k">이 새로운 디코딩 방식은 높은 동시성 서빙에서 처리량을 개선합니다.</div></div>
 </div><div class="v">
-  <div class="vt">embodied</div>
-  <div class="vm">체화된, 물리적 몸이나 로봇을 통해 세상과 상호작용하는</div>
-  <div class="vex"><div class="e">“Embodied world models help robots anticipate how a scene moves under interaction.”</div><div class="k">체화형 월드 모델은 로봇이 상호작용 시 장면이 어떻게 움직일지 예측하도록 돕습니다.</div></div>
+  <div class="vt">distillation</div>
+  <div class="vm">증류 (큰 교사 모델의 지식을 작은 학생 모델로 옮기는 기법)</div>
+  <div class="vex"><div class="e">“On-policy distillation trains a student to imitate a stronger teacher.”</div><div class="k">온폴리시 증류는 학생이 더 강한 교사를 모방하도록 훈련합니다.</div></div>
 </div></section>
 <div class="takeaway"><span class="lbl">오늘 반드시 기억할 것 · Takeaway</span>
-  오늘의 주제는 능동성과 예측입니다. 도구를 사용하고 여러 단계에 걸쳐 행동하며 미래 세계를 시뮬레이션하는 모델들이 연구 데모를 넘어 실제 플랫폼으로 나아가고 있습니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">Today&#x27;s theme is agency and prediction: models that use tools, act over many steps, and simulate future worlds are moving from research demos toward real platforms.</span></div>
+  지능이 저렴해지면서, 최전선은 도구를 사용하는 에이전트, 현실을 시뮬레이션하는 월드 모델, 그리고 장문맥과 훈련을 감당 가능하게 만드는 효율적 기법으로 옮겨가고 있습니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">As intelligence gets cheaper, the frontier is shifting to agents that use tools, world models that simulate reality, and efficient methods that make long contexts and training affordable.</span></div>
 </main>
 <footer>AI Daily Learn · Claude 가 매일 자동 생성 · 학습은 복리입니다 📈</footer>
 <script>
