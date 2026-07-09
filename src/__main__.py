@@ -93,6 +93,35 @@ def collect(cfg: Config, seen: set[str], date_str: str) -> dict:
     }
 
 
+def rerender(cfg: Config) -> int:
+    """저장된 content/*.json 으로 모든 페이지를 다시 생성 (Claude 재호출 없음)."""
+    files = sorted(cfg.content_dir.glob("*.json"))
+    if not files:
+        log.warning("재렌더할 content/*.json 이 없습니다.")
+        return 1
+    (cfg.site_dir / "daily").mkdir(parents=True, exist_ok=True)
+    log.info("재렌더 시작: %d개 날짜", len(files))
+
+    manifest: list[dict] = []
+    latest_data = None
+    for f in files:
+        date_str = f.stem
+        data = json.loads(f.read_text(encoding="utf-8"))
+        html = page_generator.render_daily(date_str, data, cfg.site_title, cfg.site_tagline)
+        (cfg.site_dir / "daily" / f"{date_str}.html").write_text(html, encoding="utf-8")
+        manifest = site_builder.upsert_manifest(
+            cfg.site_dir, date_str, (data.get("headline") or {}).get("ko", ""))
+        latest_data = (manifest[0]["date"], json.loads(
+            (cfg.content_dir / f"{manifest[0]['date']}.json").read_text(encoding="utf-8")))
+
+    if latest_data:
+        site_builder.build_index(cfg.site_dir, latest_data[0], latest_data[1],
+                                 cfg.site_title, cfg.site_tagline)
+    site_builder.build_archive(cfg.site_dir, manifest, cfg.site_title, cfg.site_tagline)
+    log.info("재렌더 완료: %d개 페이지", len(files))
+    return 0
+
+
 def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
     log = logging.getLogger("aidl")
     cfg.data_dir.mkdir(parents=True, exist_ok=True)
@@ -120,6 +149,10 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
 
     analysis_path = cfg.data_dir / f"{date_str}_learn.json"
     analysis_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    # 커밋되는 위치에도 보관 → 나중에 템플릿만 바꿔 무료 재렌더 가능
+    cfg.content_dir.mkdir(parents=True, exist_ok=True)
+    (cfg.content_dir / f"{date_str}.json").write_text(
+        json.dumps(data, ensure_ascii=False), encoding="utf-8")
 
     # 이번에 다룬 논문을 seen 에 기록 → 다음 실행부터 중복 제외
     for p in data.get("papers", []):
@@ -156,11 +189,15 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="AI Daily Learn 파이프라인")
     parser.add_argument("--date", help="YYYY-MM-DD (기본: 오늘)")
     parser.add_argument("--fetch-only", action="store_true", help="수집만 하고 종료")
+    parser.add_argument("--rerender", action="store_true",
+                        help="저장된 content 로 페이지만 다시 생성 (Claude 호출 없음)")
     args = parser.parse_args(argv)
 
     cfg = Config()
     date_str = args.date or _today(cfg)
     try:
+        if args.rerender:
+            return rerender(cfg)
         return run(cfg, date_str, args.fetch_only)
     except Exception:  # noqa: BLE001
         logging.getLogger("aidl").exception("파이프라인 실패")

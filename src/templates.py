@@ -48,6 +48,16 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
   padding:2px 6px;background:var(--pill);border-radius:5px;margin-top:3px}
 .bi .en .flag{color:var(--accent)} .bi .ko .flag{color:var(--accent2)}
 .biwrap{margin:6px 0}
+/* 용어 툴팁: 영어 단어에 hover/tap → 뜻 표시 */
+.tip{border-bottom:1px dotted var(--accent);cursor:help;position:relative;outline:none}
+.tip::after{content:attr(data-tip);position:absolute;left:0;bottom:135%;
+  background:#0b0d12;color:var(--text);border:1px solid var(--accent);
+  padding:6px 10px;border-radius:7px;font-size:13px;line-height:1.5;font-weight:400;
+  width:max-content;max-width:280px;white-space:normal;
+  box-shadow:0 6px 18px rgba(0,0,0,.45);
+  opacity:0;visibility:hidden;transform:translateY(4px);transition:.12s;
+  pointer-events:none;z-index:20}
+.tip:hover::after,.tip:focus::after{opacity:1;visibility:visible;transform:translateY(0)}
 .paper{padding:16px 0;border-bottom:1px solid var(--line)}
 .paper:last-child{border-bottom:none;padding-bottom:0}
 .paper .pt{font-weight:700;font-size:16px}

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import re
 
 from .templates import page_shell
 
@@ -10,12 +11,67 @@ def _e(s: str) -> str:
     return html.escape(str(s or ""))
 
 
+# 용어→뜻 툴팁 사전 (render_body 에서 설정). 영어 본문에 나오면 hover 로 뜻 표시.
+_TIP_MAP: dict[str, str] = {}
+_TIP_RE: re.Pattern | None = None
+
+
+def _build_tips(data: dict) -> None:
+    """vocab + fundamentals.terms + 핵심개념에서 용어→뜻 사전 구성."""
+    global _TIP_MAP, _TIP_RE
+    tips: dict[str, str] = {}
+
+    def put(term: str, meaning: str) -> None:
+        term = (term or "").strip()
+        meaning = (meaning or "").strip()
+        if len(term) < 2 or not meaning:
+            return
+        tips.setdefault(_e(term), meaning)
+        # "RAG (Retrieval-Augmented Generation)" → 약어/풀네임 각각도 등록
+        m = re.match(r"^(.+?)\s*\((.+)\)\s*$", term)
+        if m:
+            for part in (m.group(1), m.group(2)):
+                if len(part.strip()) >= 2:
+                    tips.setdefault(_e(part.strip()), meaning)
+
+    for v in data.get("vocab", []):
+        put(v.get("term"), v.get("meaning_ko"))
+    for t in data.get("fundamentals", {}).get("terms", []):
+        put(t.get("term"), t.get("meaning_ko"))
+    kc = data.get("key_concept", {})
+    put(kc.get("term_en"), kc.get("term_ko"))
+
+    _TIP_MAP = tips
+    if tips:
+        # 긴 용어 우선 매칭
+        alts = sorted((re.escape(k) for k in tips), key=len, reverse=True)
+        _TIP_RE = re.compile(
+            r"(?<![A-Za-z0-9_])(" + "|".join(alts) + r")(?![A-Za-z0-9_])"
+        )
+    else:
+        _TIP_RE = None
+
+
+def _linkify(escaped_en: str) -> str:
+    """이미 이스케이프된 영어 문장에서 사전 용어를 툴팁 span 으로 감싼다."""
+    if not _TIP_RE:
+        return escaped_en
+
+    def repl(mo: re.Match) -> str:
+        found = mo.group(1)
+        meaning = _TIP_MAP.get(found, "")
+        tip = html.escape(meaning, quote=True)
+        return f'<span class="tip" tabindex="0" data-tip="{tip}">{found}</span>'
+
+    return _TIP_RE.sub(repl, escaped_en)
+
+
 def _bi(pair: dict) -> str:
-    """영어 원문 + 한국어 번역 한 쌍."""
+    """영어 원문 + 한국어 번역 한 쌍. 영어엔 용어 툴팁 적용."""
     if not pair:
         return ""
     return f"""<div class="bi">
-  <div class="en"><span class="flag">EN</span><span>{_e(pair.get('en'))}</span></div>
+  <div class="en"><span class="flag">EN</span><span>{_linkify(_e(pair.get('en')))}</span></div>
   <div class="ko"><span class="flag">KO</span><span>{_e(pair.get('ko'))}</span></div>
 </div>"""
 
@@ -152,6 +208,7 @@ def _takeaway(data: dict) -> str:
 
 def render_body(date_str: str, data: dict, label: str = "") -> str:
     """일일 학습 콘텐츠 본문 HTML (index/daily 공용)."""
+    _build_tips(data)  # 이 문서의 용어 툴팁 사전 준비
     return f"""{_hero(date_str, data, label)}
 {_fundamentals(data.get('fundamentals', {}))}
 {_key_concept(data.get('key_concept', {}))}

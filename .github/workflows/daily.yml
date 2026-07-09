@@ -15,6 +15,11 @@ on:
         type: boolean
         required: false
         default: false
+      rerender:
+        description: "저장된 콘텐츠로 페이지만 다시 생성(Claude 호출 없음, 무료)"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write             # site/ 커밋
@@ -45,7 +50,11 @@ jobs:
           AIDL_MODEL: ${{ vars.AIDL_MODEL || 'claude-opus-4-8' }}
           DATES: ${{ inputs.dates }}
           RESET_SEEN: ${{ inputs.reset_seen }}
+          RERENDER: ${{ inputs.rerender }}
         run: |
+          if [ "$RERENDER" = "true" ]; then
+            echo "무료 재렌더(Claude 호출 없음)"; python -m src --rerender; exit $?
+          fi
           if [ "$RESET_SEEN" = "true" ]; then
             echo "중복추적 초기화"; rm -f site/seen_papers.json
           fi
@@ -62,7 +71,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site/
+          git add site/ content/
           git commit -m "chore: daily learn $(date -u +%Y-%m-%d)" || echo "no changes"
           git push || echo "nothing to push"
 

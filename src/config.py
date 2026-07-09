@@ -21,6 +21,8 @@ class Config:
     # --- 출력 경로 ---
     site_dir: Path = field(default_factory=lambda: Path(os.getenv("AIDL_SITE_DIR", "site")))
     data_dir: Path = field(default_factory=lambda: Path(os.getenv("AIDL_DATA_DIR", "data")))
+    # 분석 결과(learn json)를 커밋되는 위치에 보관 → Claude 재호출 없이 재렌더 가능
+    content_dir: Path = field(default_factory=lambda: Path(os.getenv("AIDL_CONTENT_DIR", "content")))
 
     # --- 사이트 메타 ---
     site_title: str = field(default_factory=lambda: os.getenv("AIDL_SITE_TITLE", "AI Daily Learn"))
