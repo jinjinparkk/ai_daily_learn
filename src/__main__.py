@@ -24,9 +24,9 @@ except ImportError:  # python-dotenv 미설치 시에도 동작
 
 from datetime import date as _date
 
-from . import analyzer, page_generator, site_builder
+from . import analyzer, page_generator, seen as seen_mod, site_builder
 from .config import FUNDAMENTALS, RSS_FEEDS, Config
-from .sources import arxiv_client, github_client, rss_client
+from .sources import arxiv_client, github_client, hf_papers, rss_client
 
 
 def _fundamental_for(date_str: str) -> dict:
@@ -34,6 +34,9 @@ def _fundamental_for(date_str: str) -> dict:
     y, m, d = (int(x) for x in date_str.split("-"))
     idx = _date(y, m, d).toordinal() % len(FUNDAMENTALS)
     return FUNDAMENTALS[idx]
+
+
+log = logging.getLogger("aidl")
 
 
 def _setup_logging() -> None:
@@ -48,12 +51,43 @@ def _today(cfg: Config) -> str:
     return datetime.now(ZoneInfo(cfg.timezone)).strftime("%Y-%m-%d")
 
 
-def collect(cfg: Config) -> dict:
-    papers = arxiv_client.fetch_recent_papers(cfg.arxiv_categories, cfg.arxiv_max_results)
+def _build_paper_pool(cfg: Config, seen: set[str]) -> list[dict]:
+    """중요도(HF 추천수) 우선 + arXiv 신선도 보충 + 이미 다룬 논문 제외."""
+    pool: list[dict] = []
+    used: set[str] = set()
+
+    def add(title, authors, summary, url, upvotes, source, keywords):
+        aid = seen_mod.normalize_id(url)
+        if not aid or aid in seen or aid in used:
+            return
+        used.add(aid)
+        pool.append({
+            "title": title, "authors": authors, "summary": summary[:1200],
+            "url": url, "upvotes": upvotes, "source": source, "keywords": keywords,
+        })
+
+    # 1) HF Daily Papers (중요도 순)
+    for p in hf_papers.fetch_daily_papers(cfg.hf_limit):
+        add(p.title, p.authors, p.summary, p.url, p.upvotes, "HuggingFace", p.keywords)
+
+    # 2) 부족하면 arXiv 최신으로 보충
+    if len(pool) < cfg.paper_pool:
+        for p in arxiv_client.fetch_recent_papers(cfg.arxiv_categories, cfg.arxiv_max_results):
+            if len(pool) >= cfg.paper_pool:
+                break
+            add(p.title, p.authors, p.summary, p.url, 0, "arXiv", [])
+
+    log.info("논문 후보 %d건 (HF %d + arXiv 보충, 중복 %d건 제외됨)",
+             len(pool), sum(1 for x in pool if x["source"] == "HuggingFace"), len(seen))
+    return pool[: cfg.paper_pool]
+
+
+def collect(cfg: Config, seen: set[str]) -> dict:
+    papers = _build_paper_pool(cfg, seen)
     news = rss_client.fetch_news(RSS_FEEDS)
     repos = github_client.fetch_trending(cfg.github_topics, cfg.github_token)
     return {
-        "arxiv": arxiv_client.to_dicts(papers),
+        "papers": papers,
         "news": rss_client.to_dicts(news),
         "repos": github_client.to_dicts(repos),
     }
@@ -65,7 +99,8 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
     (cfg.site_dir / "daily").mkdir(parents=True, exist_ok=True)
 
     log.info("=== AI Daily Learn : %s ===", date_str)
-    raw = collect(cfg)
+    seen = seen_mod.load_seen(cfg.site_dir)
+    raw = collect(cfg, seen)
 
     raw_path = cfg.data_dir / f"{date_str}_raw.json"
     raw_path.write_text(json.dumps(raw, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -80,11 +115,19 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
     log.info("오늘의 기초 주제: %s / %s", fundamental["en"], fundamental["ko"])
     data = analyzer.analyze(
         cfg.model, cfg.anthropic_api_key, date_str,
-        raw["arxiv"], raw["news"], raw["repos"], fundamental,
+        raw["papers"], raw["news"], raw["repos"], fundamental,
     )
 
     analysis_path = cfg.data_dir / f"{date_str}_learn.json"
     analysis_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # 이번에 다룬 논문을 seen 에 기록 → 다음 실행부터 중복 제외
+    for p in data.get("papers", []):
+        aid = seen_mod.normalize_id(p.get("url", ""))
+        if aid:
+            seen.add(aid)
+    seen_mod.save_seen(cfg.site_dir, seen)
+    log.info("중복추적 갱신: 누적 %d편", len(seen))
 
     # 날짜별 페이지
     daily_html = page_generator.render_daily(date_str, data, cfg.site_title, cfg.site_tagline)

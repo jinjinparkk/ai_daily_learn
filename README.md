@@ -2,7 +2,8 @@
 
 **매일 아침 자동으로 새 페이지가 생성되는 AI 학습 웹사이트.**
 
-arXiv 최신 논문 + AI 업계 뉴스(RSS) + GitHub 오픈소스 트렌드를 수집하고,
+**중요 논문(HuggingFace Daily Papers, 추천수 큐레이션)** + AI 업계 뉴스(RSS) + GitHub 트렌드를 수집하고,
+이미 다룬 논문은 자동 제외(중복 방지)한 뒤,
 Claude 가 이를 **단순 요약이 아닌 학습 콘텐츠**로 재구성합니다:
 
 > 핵심 개념 → 주요 논문 해설 → 트렌드 인사이트 → 주목할 도구 → 오늘의 퀴즈 → 용어사전
@@ -21,8 +22,10 @@ ai_daily_learn/
 │  ├─ page_generator.py  # 일일 HTML 렌더링
 │  ├─ site_builder.py    # index/archive/manifest
 │  ├─ templates.py       # 공유 셸 + CSS + 퀴즈 JS
+│  ├─ seen.py            # 이미 다룬 논문 추적(중복 방지)
 │  └─ sources/
-│     ├─ arxiv_client.py   # arXiv API
+│     ├─ hf_papers.py     # HuggingFace Daily Papers (중요도=추천수, 주력)
+│     ├─ arxiv_client.py   # arXiv API (보충)
 │     ├─ rss_client.py     # AI 뉴스 RSS
 │     └─ github_client.py  # GitHub 트렌드
 ├─ site/                 # 생성되는 정적 사이트 (배포 대상)

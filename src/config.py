@@ -32,7 +32,10 @@ class Config:
     arxiv_categories: list[str] = field(
         default_factory=lambda: _split("AIDL_ARXIV_CATEGORIES", "cs.AI,cs.LG,cs.CL,cs.CV")
     )
-    arxiv_max_results: int = field(default_factory=lambda: int(os.getenv("AIDL_ARXIV_MAX", "30")))
+    arxiv_max_results: int = field(default_factory=lambda: int(os.getenv("AIDL_ARXIV_MAX", "40")))
+    hf_limit: int = field(default_factory=lambda: int(os.getenv("AIDL_HF_LIMIT", "60")))
+    # Claude 에 넘길 후보 논문 수 (여기서 4~6개를 선별). 중복 제거 후 이만큼 채운다.
+    paper_pool: int = field(default_factory=lambda: int(os.getenv("AIDL_PAPER_POOL", "14")))
     github_token: str = field(default_factory=lambda: os.getenv("GITHUB_TOKEN", ""))
     github_topics: list[str] = field(
         default_factory=lambda: _split("AIDL_GITHUB_TOPICS", "llm,agent,rag,machine-learning")
