@@ -102,17 +102,17 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
 <main class="wrap">
 <div class="hero">
   <div class="date">2026-07-09 · 오늘의 학습 / Today</div>
-  <div class="headline">월드 모델, 효율적인 어텐션, 그리고 그 뒤에 있는 스케일링 법칙</div>
-  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">World Models, Efficient Attention, and the Scaling Laws Behind Them</div>
+  <div class="headline">스케일링 법칙, 더 똑똑한 메모리, 그리고 더 저렴해진 지능</div>
+  <div class="intro" style="color:#aab3c2;font-size:15px;margin-bottom:6px">Scaling Laws, Smarter Memory, and Cheaper Intelligence</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Today&#x27;s papers are dominated by interactive world models and efficiency tricks for long-context language models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>오늘의 논문은 상호작용형 월드 모델과 긴 문맥 언어 모델을 위한 효율화 기법이 주를 이룹니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Today we start with the fundamentals of scaling laws, the equations that predict how models improve as they grow.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘은 모델이 커질수록 얼마나 좋아지는지를 예측하는 방정식인 스케일링 법칙의 기초부터 시작합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>On the industry side, model costs keep falling fast, and new releases like Gemma 4 and GPT-Live push multimodal capabilities forward.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>업계 쪽에서는 모델 비용이 계속 빠르게 떨어지고 있으며, Gemma 4와 GPT-Live 같은 신규 출시가 멀티모달 역량을 앞으로 밀어붙이고 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Then we look at fresh research on memory-native agents, model linearization, and self-competing reasoning.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이어서 메모리 기반 에이전트, 모델 선형화, 자기 경쟁 추론에 관한 최신 연구를 살펴봅니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>To make sense of these trends, our fundamentals section explains scaling laws, the idea that quietly drives all of this progress.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이런 흐름을 이해하기 위해, 기초 섹션에서는 이 모든 발전을 조용히 이끄는 개념인 스케일링 법칙을 설명합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Finally, industry news shows the cost of AI intelligence dropping fast, reshaping how systems are built.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>마지막으로, AI 지능의 비용이 빠르게 낮아지며 시스템 구축 방식을 바꾸고 있다는 업계 소식을 다룹니다.</span></div>
 </div></div>
 </div>
 <section class="block fund">
@@ -120,272 +120,244 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:30px 0;border
   <div class="term">스케일링 법칙 <span style="color:var(--muted);font-weight:600;font-size:16px">Scaling Laws</span></div>
   <div class="sublabel">이게 뭐야? · What is it</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Scaling laws describe how a model&#x27;s performance improves as you increase three things: model size, dataset size, and the amount of compute used for training.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델 크기, 데이터셋 크기, 학습에 쓰이는 연산량이라는 세 가지를 늘렸을 때 모델 성능이 어떻게 향상되는지를 설명합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Scaling laws are empirical rules describing how a model&#x27;s performance changes as you increase its size, data, or compute.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델의 크기, 데이터, 연산량을 늘릴 때 성능이 어떻게 변하는지를 설명하는 경험적 규칙입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The key finding is that these improvements follow a smooth, predictable pattern rather than random jumps.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>핵심 발견은 이러한 향상이 무작위적인 도약이 아니라 매끄럽고 예측 가능한 패턴을 따른다는 점입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>They usually show that error falls smoothly and predictably following a power-law curve.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이 법칙은 보통 오차가 거듭제곱(멱함수) 곡선을 따라 매끄럽고 예측 가능하게 줄어듦을 보여줍니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This lets researchers forecast how much better a larger model will be before actually training it.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>덕분에 연구자들은 더 큰 모델을 실제로 학습시키기 전에 얼마나 더 좋아질지 예측할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This lets researchers estimate results of a huge model before actually training it.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>덕분에 연구자들은 거대한 모델을 실제로 학습시키기 전에 그 결과를 추정할 수 있습니다.</span></div>
 </div></div>
   <div class="sublabel">작동 원리 · How it works</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Researchers train many small models with different sizes and data amounts, then measure their loss, a number that reflects prediction error.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>연구자들은 크기와 데이터 양이 서로 다른 여러 작은 모델을 학습시킨 뒤, 예측 오차를 나타내는 값인 손실(loss)을 측정합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>You train many smaller models with different sizes and data amounts, then measure their loss.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>먼저 크기와 데이터 양이 서로 다른 여러 작은 모델을 학습시키고 각각의 손실(loss)을 측정합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>When they plot loss against model size on a log-log scale, the points fall almost on a straight line.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>손실을 모델 크기에 대해 로그-로그 척도로 그리면, 점들이 거의 직선 위에 놓입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>When you plot loss against compute on a log-log scale, the points often fall on a straight line.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>손실을 연산량에 대해 로그-로그 축으로 그리면 점들이 자주 직선 위에 놓입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This straight line is a power law: loss decreases predictably as resources grow, though with diminishing returns.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 직선은 거듭제곱 법칙(power law)으로, 자원이 커질수록 손실이 예측 가능하게 줄어들지만 수익은 점점 감소합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>That straight line is the power law: loss decreases as a fixed fraction each time you multiply resources.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>그 직선이 바로 멱법칙으로, 자원을 곱해 늘릴 때마다 손실이 일정 비율로 감소합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A crucial insight is balance: adding more parameters without enough data, or vice versa, wastes resources.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>핵심 통찰은 균형입니다. 데이터가 충분하지 않은 채로 파라미터만 늘리거나 그 반대로 하면 자원을 낭비하게 됩니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>By extending the line, you can predict how a much larger model would perform.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>그 직선을 연장하면 훨씬 더 큰 모델이 어느 정도 성능을 낼지 예측할 수 있습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The Chinchilla study showed that many large models were undertrained, meaning they needed far more data for their size.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Chinchilla 연구는 많은 대형 모델이 학습 부족 상태였음을, 즉 그 크기에 비해 훨씬 더 많은 데이터가 필요했음을 보여주었습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>A key insight is the compute-optimal balance: for a fixed budget, model size and training data should grow together.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>핵심 통찰은 연산 최적 균형으로, 정해진 예산에서는 모델 크기와 학습 데이터가 함께 늘어나야 한다는 것입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Scaling laws guide budgets by telling teams the best split of compute between model size and training tokens.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스케일링 법칙은 모델 크기와 학습 토큰 사이에 연산을 어떻게 나누는 것이 최선인지 알려주어 예산 계획을 돕습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Scaling laws also warn that gains eventually slow, so more compute alone is not a magic solution.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>또한 스케일링 법칙은 결국 성능 향상이 둔화된다고 경고하므로, 연산량만 늘리는 것이 만능 해법은 아닙니다.</span></div>
 </div></div>
   <div class="why"><strong>🧩 비유로 이해 · Analogy</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Think of baking bread: flour (data), oven size (model), and baking time (compute) must grow together in the right proportions, or you get an undercooked or wasted loaf.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>빵 굽기를 떠올려 보세요. 밀가루(데이터), 오븐 크기(모델), 굽는 시간(연산)이 올바른 비율로 함께 늘어나야 하며, 그렇지 않으면 덜 익거나 낭비되는 빵이 나옵니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It is like predicting a plant&#x27;s height: if watering it twice as much always adds a steady bit of growth, you can forecast its size at any water level.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이는 식물의 키를 예측하는 것과 같습니다. 물을 두 배 줄 때마다 일정한 만큼 자란다면, 어떤 물의 양에서든 키를 예측할 수 있는 셈입니다.</span></div>
 </div></div>
   <div class="sublabel">기본 용어 · Key terms</div>
-  <div class="terms"><div class="t"><span class="tt2">Power law (거듭제곱 법칙)</span><span>한 변수가 다른 변수의 거듭제곱에 비례해 변하는 관계로, 로그 척도에서 직선으로 나타납니다.</span></div><div class="t"><span class="tt2">Loss (손실)</span><span>모델의 예측이 정답과 얼마나 차이 나는지를 나타내는 값으로, 작을수록 좋습니다.</span></div><div class="t"><span class="tt2">Compute-optimal (연산 최적)</span><span>주어진 연산 예산에서 모델 크기와 데이터 양을 최선으로 배분한 상태입니다.</span></div><div class="t"><span class="tt2">Parameters (파라미터)</span><span>학습을 통해 조정되는 모델 내부의 가중치 수로, 모델 크기를 나타내는 지표입니다.</span></div><div class="t"><span class="tt2">Diminishing returns (수익 체감)</span><span>자원을 더 투입할수록 성능 향상 폭이 점점 작아지는 현상입니다.</span></div></div>
+  <div class="terms"><div class="t"><span class="tt2">Power law (멱법칙)</span><span>한 값이 다른 값의 거듭제곱에 비례해 변하는 관계로, 로그 축에서 직선으로 나타남.</span></div><div class="t"><span class="tt2">Compute-optimal</span><span>정해진 연산 예산에서 모델 크기와 데이터 양의 최적 조합.</span></div><div class="t"><span class="tt2">Loss (손실)</span><span>모델의 예측이 정답과 얼마나 차이 나는지를 나타내는 오차 지표.</span></div><div class="t"><span class="tt2">Emergent ability (창발적 능력)</span><span>모델이 일정 규모를 넘어서야 갑자기 나타나는 능력.</span></div></div>
 </section>
 <section class="block concept">
   <h2>오늘의 핵심 개념 · Key Concept</h2>
-  <div class="term">월드 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">World Model</span></div>
+  <div class="term">메모리 증강 모델 <span style="color:var(--muted);font-weight:600;font-size:16px">Memory-Augmented Models</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A world model is a neural network that learns to predict how an environment will change in response to actions.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>월드 모델은 어떤 행동에 반응해 환경이 어떻게 변할지를 예측하도록 학습하는 신경망입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Many models treat only the current input, forgetting what happened earlier in a long task.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>많은 모델은 현재 입력만을 다루며 긴 작업에서 앞서 일어난 일을 잊어버립니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Instead of hand-building every rule of a game or a robot&#x27;s surroundings, the model learns dynamics from video and interaction data.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>게임이나 로봇 주변 환경의 모든 규칙을 손으로 만드는 대신, 모델은 영상과 상호작용 데이터로부터 동역학을 학습합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Memory-augmented models keep a separate store of past experience or facts to consult later.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>메모리 증강 모델은 과거 경험이나 사실을 별도의 저장소에 보관해 나중에 참고합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Given the current state and a user&#x27;s action, it autoregressively generates the next observation, frame by frame.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>현재 상태와 사용자의 행동이 주어지면, 다음 관측을 프레임 단위로 자기회귀적으로 생성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Some designs externalize knowledge into a knowledge base instead of packing it into the weights.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>어떤 설계는 지식을 가중치 안에 넣는 대신 외부 지식 베이스로 빼냅니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>AlayaWorld applies this to playable game worlds, while RynnWorld models apply it to robotic manipulation and teleoperation.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 이를 플레이 가능한 게임 세계에 적용하고, RynnWorld 계열은 로봇 조작과 원격조작에 적용합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>The newest approaches turn retrieved history into latent tokens woven directly into reasoning.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>최신 접근법은 검색한 과거 정보를 잠재 토큰으로 바꿔 추론 과정에 직접 엮어 넣습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The appeal is that generated experiences can replace expensive real-world data collection for training agents.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 방식의 매력은 생성된 경험이 에이전트 학습을 위한 값비싼 실제 데이터 수집을 대체할 수 있다는 점입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This can improve long-horizon tasks and make factual knowledge easier to control or update.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이는 장기 과제 성능을 높이고 사실 지식을 더 쉽게 제어하거나 갱신하게 해줍니다.</span></div>
 </div></div>
   <div class="why"><strong>왜 지금? · Why now</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>With inference costs dropping sharply, generating rich interactive worlds is becoming cheap enough to be practical.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>추론 비용이 급격히 낮아지면서, 풍부한 상호작용형 세계를 생성하는 일이 실용적일 만큼 저렴해지고 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Several papers today attack memory from different angles, signaling it is a central bottleneck for capable agents.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>오늘 여러 논문이 서로 다른 각도에서 메모리 문제를 다루는데, 이는 유능한 에이전트의 핵심 병목임을 보여줍니다.</span></div>
 </div></div>
 </section>
 <section class="block"><h2>주요 논문 해설 · Papers</h2><div class="paper">
-  <div class="pt">AlayaWorld: 장기 지평선 및 플레이 가능한 비디오 월드 생성<span class="en">AlayaWorld: Long-Horizon and Playable Video World Generation</span></div>
+  <div class="pt">Co-LMLM: 연속 질의 기반 제한 메모리 언어 모델<span class="en">Co-LMLM: Continuous-Query Limited Memory Language Models</span></div>
+  <div><span class="pill d고급">고급</span></div>
+  <div class="biwrap"><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Limited memory language models store facts in an external knowledge base instead of memorizing them in weights.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>제한 메모리 언어 모델은 사실을 가중치에 암기하는 대신 외부 지식 베이스에 저장합니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Co-LMLM pairs continuous vector keys with text values, generating flexible queries at low cost.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Co-LMLM은 연속 벡터 키와 텍스트 값을 짝지어, 낮은 비용으로 유연한 질의를 생성합니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>At 360M parameters it beats models trained on 40x more data on perplexity and matches gpt-4o-mini on some facts.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>3억 6천만 파라미터로도 40배 더 많은 데이터로 학습한 모델보다 perplexity가 낮고, 일부 사실 문제에서 gpt-4o-mini에 필적합니다.</span></div>
+</div></div>
+  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Externalized, controllable knowledge could make small models more factual and easier to update.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>외부화된 제어 가능한 지식은 작은 모델을 더 정확하고 갱신하기 쉽게 만들 수 있습니다.</span></div>
+</div></div>
+  <div><a href="https://arxiv.org/abs/2607.07707v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+</div><div class="paper">
+  <div class="pt">선형화의 열쇠: 분석 기반 트랜스포머 선형화<span class="en">The Key to Going Linear: Analysis-Driven Transformer Linearization</span></div>
+  <div><span class="pill d고급">고급</span></div>
+  <div class="biwrap"><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Self-attention costs grow quadratically, which bottlenecks long-context inference.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>셀프 어텐션은 비용이 제곱으로 증가해 긴 문맥 추론의 병목이 됩니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>The authors analyze which parts of attention preserve quality when converting a model to a linear form.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>저자들은 모델을 선형 형태로 바꿀 때 어떤 어텐션 요소가 품질을 유지하는지 분석합니다.</span></div>
+</div><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>With sink tokens and short convolutions they scale linearization up to 32B-parameter LLaMA and Qwen models.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>싱크 토큰과 짧은 합성곱을 활용해 320억 파라미터 LLaMA·Qwen 모델까지 선형화를 확장합니다.</span></div>
+</div></div>
+  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
+  <div class="en"><span class="flag">EN</span><span>Cheaper long-context inference makes big models more practical to deploy.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>긴 문맥 추론을 더 저렴하게 만들면 큰 모델을 실제로 배포하기가 더 쉬워집니다.</span></div>
+</div></div>
+  <div><a href="https://arxiv.org/abs/2607.07706v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+</div><div class="paper">
+  <div class="pt">Agon: 추론을 암묵적으로 상호 채점하는 경쟁형 교차 모델 강화학습<span class="en">Agon: Competitive Cross-Model RL with Implicit Rival Grading of Reasoning</span></div>
   <div><span class="pill d중급">중급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>AlayaWorld is a full-stack open-source framework for generating interactive game worlds in real time.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>AlayaWorld는 상호작용형 게임 세계를 실시간으로 생성하는 풀스택 오픈소스 프레임워크입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Standard reward learning grades only the final answer, teaching models to write more rather than reason better.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>기존 보상 학습은 최종 답만 채점해, 모델이 더 잘 추론하기보다 더 길게 쓰도록 만듭니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Rather than authoring every element, it autoregressively synthesizes future frames from the current state and user actions.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>모든 요소를 직접 제작하는 대신, 현재 상태와 사용자 행동으로부터 미래 프레임을 자기회귀적으로 합성합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Agon makes two models each other&#x27;s graders, each rewarded for out-solving the rival.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Agon은 두 모델이 서로의 채점자가 되어, 상대를 앞질러 푸는 쪽이 보상을 받게 합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Users can freely navigate and perform actions like combat and spell casting inside the generated world.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>사용자는 생성된 세계 안에서 전투나 주문 시전 같은 행동을 자유롭게 수행하며 이동할 수 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>On the hard split of DeepMath this doubles the pass@1 of the GRPO baseline.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>DeepMath의 어려운 문제 집합에서 이 방법은 GRPO 기준선의 pass@1을 두 배로 높입니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It shows a path away from costly hand-built game pipelines toward models that generate worlds on demand.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>값비싼 수작업 게임 제작 파이프라인에서 벗어나, 요청 시 세계를 생성하는 모델로 가는 길을 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Competition can grade reasoning quality without expensive process labels.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>경쟁을 통해 값비싼 과정 라벨 없이도 추론의 질을 채점할 수 있습니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.06291" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.07690v1" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">RynnWorld-4D: 로봇 조작을 위한 4D 체화 월드 모델<span class="en">RynnWorld-4D: 4D Embodied World Models for Robotic Manipulation</span></div>
-  <div><span class="pill d고급">고급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>RynnWorld-4D jointly generates future RGB frames, depth maps, and optical flow from one RGB-D image and a language instruction.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>RynnWorld-4D는 하나의 RGB-D 이미지와 언어 지시로부터 미래 RGB 프레임, 깊이 맵, 광류를 함께 생성합니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This RGB-DF representation links visual appearance with geometry and motion, closer to what robots actually need.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이 RGB-DF 표현은 시각적 외형을 기하 구조 및 움직임과 연결하여, 로봇이 실제로 필요로 하는 것에 더 가깝습니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It uses a tri-branch architecture and was trained on over 254 million frames.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>세 갈래 구조(tri-branch)를 사용하며 2억 5,400만 장이 넘는 프레임으로 학습되었습니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>By predicting 3D dynamics, not just pixels, it narrows the gap between world prediction and robot policy learning.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>단순한 픽셀이 아닌 3D 동역학을 예측함으로써, 세계 예측과 로봇 정책 학습 사이의 간극을 좁힙니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.06559" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">Gemma 4 기술 보고서<span class="en">Gemma 4 Technical Report</span></div>
+  <div class="pt">체화 지능을 위한 전문가 혼합(MoE) 비디오 사전학습 확장<span class="en">Scaling Mixture-of-Experts Video Pretraining for Embodied Intelligence</span></div>
   <div><span class="pill d중급">중급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Gemma 4 is a family of open-weight, natively multimodal models ranging from 2.3B to 31B parameters.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Gemma 4는 2.3B에서 31B 파라미터에 이르는 오픈 웨이트 네이티브 멀티모달 모델 제품군입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>General video generators prioritize visual beauty over physical realism, hurting robot control.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>일반 비디오 생성 모델은 물리적 사실성보다 시각적 아름다움을 우선해 로봇 제어에 불리합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It includes both dense and Mixture-of-Experts architectures, plus improved vision and audio encoders.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>밀집(dense) 구조와 전문가 혼합(MoE) 구조를 모두 포함하며, 개선된 비전·오디오 인코더를 갖췄습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>LingBot-Video uses a Mixture-of-Experts design to balance capacity and inference efficiency.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>LingBot-Video는 전문가 혼합 구조로 모델 용량과 추론 효율의 균형을 맞춥니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>A thinking mode lets the models generate reasoning traces before giving a final answer.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>&#x27;생각 모드&#x27;는 모델이 최종 답을 내기 전에 추론 과정을 생성하도록 해 줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It adds robot-oriented footage and a reward system enforcing physical rationality and task completion.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>또한 로봇 중심 영상과 물리적 타당성·과제 완수를 강제하는 보상 체계를 추가합니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It shows how compute-efficient design and scaling choices let smaller open models rival larger frontier ones.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>연산 효율적인 설계와 스케일링 선택이 어떻게 더 작은 오픈 모델을 대형 프론티어 모델과 견주게 하는지 보여줍니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It shows how scaling and MoE can be tailored specifically for physical, embodied tasks.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>확장과 MoE를 물리적·체화 과제에 맞게 특화할 수 있음을 보여줍니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.02770" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.07675" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div><div class="paper">
-  <div class="pt">제대로 된 계층적 희소 어텐션: 무한 문맥 모델링을 향하여<span class="en">Hierarchical Sparse Attention Done Right: Toward Infinite Context Modeling</span></div>
+  <div class="pt">로봇 조작을 위한 시각-언어-행동 모델의 이중 잠재 메모리<span class="en">Dual Latent Memory in Vision-Language-Action Models for Robotic Manipulation</span></div>
   <div><span class="pill d고급">고급</span></div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Dense attention scales quadratically with context length, making very long inputs expensive.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>밀집 어텐션은 문맥 길이에 대해 제곱으로 비용이 커져, 매우 긴 입력을 다루기에 비쌉니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Most VLA models act only on the current observation, struggling with long, time-dependent tasks.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>대부분의 VLA 모델은 현재 관측만으로 행동해 길고 시간 의존적인 과제에 취약합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>HiLS Attention selects relevant chunks and learns that selection end-to-end under the language-modeling loss.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>HiLS 어텐션은 관련 있는 청크를 선택하고, 그 선택을 언어 모델링 손실 아래에서 종단 간(end-to-end)으로 학습합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>LaMem-VLA rebuilds past experience into latent memory tokens woven into the model&#x27;s reasoning.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>LaMem-VLA는 과거 경험을 잠재 메모리 토큰으로 재구성해 모델의 추론에 엮어 넣습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It matches full attention in-domain and extrapolates to over 64 times the training context length.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>도메인 내에서는 완전 어텐션에 필적하며, 학습 문맥 길이의 64배 이상으로 외삽(extrapolate)합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>It uses short-term and long-term memory vaults with a curator, seeker, condenser, and weaver.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이 모델은 큐레이터·시커·컨덴서·위버로 단기 및 장기 메모리 저장소를 운용합니다.</span></div>
 </div></div>
   <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Efficient sparse attention is key to scaling models to very long contexts without exploding compute.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>효율적인 희소 어텐션은 연산을 폭발적으로 늘리지 않고 모델을 매우 긴 문맥으로 확장하는 데 핵심입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>Native latent memory could help robots plan across longer sequences of actions.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>모델 내부의 잠재 메모리는 로봇이 더 긴 행동 순서를 계획하도록 도울 수 있습니다.</span></div>
 </div></div>
-  <div><a href="https://arxiv.org/abs/2607.02980" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">KVpop: 예측적 온라인 가지치기를 통한 키-값 캐시 압축<span class="en">KVpop -- Key-Value Cache Compression with Predictive Online Pruning</span></div>
-  <div><span class="pill d고급">고급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>The key-value cache grows linearly with context length and becomes a major memory bottleneck during decoding.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>키-값 캐시는 문맥 길이에 따라 선형으로 커져, 디코딩 중 주요한 메모리 병목이 됩니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>KVpop learns which cached entries to keep or drop by supervising against a future-attention target.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>KVpop은 미래 어텐션 목표를 기준으로 지도 학습하여 어떤 캐시 항목을 유지하거나 버릴지 배웁니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It retains 98% of full-attention performance while compressing the cache by 75%.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>캐시를 75% 압축하면서도 완전 어텐션 성능의 98%를 유지합니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Smarter cache compression cuts serving costs and lets long-context models run on less memory.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>더 똑똑한 캐시 압축은 서빙 비용을 줄이고 긴 문맥 모델을 더 적은 메모리로 구동하게 합니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.05061" target="_blank" rel="noopener">arXiv 원문 →</a></div>
-</div><div class="paper">
-  <div class="pt">MANCE: 매니폴드를 고려한 개념 제거<span class="en">MANCE: Manifold Aware Concept Erasure</span></div>
-  <div><span class="pill d고급">고급</span></div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Concept erasure removes a target concept from a representation while preserving other information.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>개념 제거는 표현에서 특정 대상 개념을 지우면서 나머지 정보는 보존하는 작업입니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>MANCE constrains the removal to a lower-dimensional manifold learned from natural inputs.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>MANCE는 자연스러운 입력에서 학습한 저차원 매니폴드로 제거 작업을 제한합니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Across 119 settings in text and vision, it consistently reduces information leakage.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>텍스트와 비전에 걸친 119개 설정에서 정보 누출을 일관되게 줄였습니다.</span></div>
-</div></div>
-  <div class="why"><strong>💡 왜 중요한가</strong><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It offers a principled way to edit model representations, useful for fairness and privacy applications.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>모델 표현을 편집하는 원리적 방법을 제시하여, 공정성과 프라이버시 응용에 유용합니다.</span></div>
-</div></div>
-  <div><a href="https://arxiv.org/abs/2607.03973" target="_blank" rel="noopener">arXiv 원문 →</a></div>
+  <div><a href="https://arxiv.org/abs/2607.07608" target="_blank" rel="noopener">arXiv 원문 →</a></div>
 </div></section>
 <section class="block"><h2>트렌드 인사이트 · Trends</h2><div class="trend">
-  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">지능이 빠르게 저렴해지고 있다</a></div>
+  <div class="tt"><a href="http://bair.berkeley.edu/blog/2026/07/07/intelligence-is-free-now-what/" target="_blank" rel="noopener">지능은 빠르게 저렴해지고 있다</a></div>
   <div class="src">Intelligence Is Getting Cheap Fast · Berkeley AI Research (BAIR)</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>GPT-4-class capability cost about $30 per million tokens in early 2023 and now runs under $1, with some providers below $0.10.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>GPT-4급 역량은 2023년 초 100만 토큰당 약 30달러였으나 지금은 1달러 미만, 일부 제공사는 0.10달러 아래로 떨어졌습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>BAIR notes inference prices have fallen roughly 9x to 900x per year, with a median near 50x.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>BAIR은 추론 가격이 연간 약 9배에서 900배, 중앙값으로는 약 50배 하락했다고 지적합니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>Inference prices have fallen between 9x and 900x per year, with a median decline near 50x.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>추론 가격은 연간 9배에서 900배까지 하락했으며, 중앙값은 약 50배에 이릅니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>GPT-4-class capability that cost about $30 per million tokens in 2023 now runs under $1.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>2023년에 100만 토큰당 약 30달러였던 GPT-4급 성능이 이제 1달러 미만입니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>This makes agent-driven systems and generated worlds economically viable much sooner than expected.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>이로 인해 에이전트 기반 시스템과 생성된 세계가 예상보다 훨씬 빨리 경제적으로 실현 가능해지고 있습니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>When intelligence is cheap, the focus shifts to data systems and how agents use it.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>지능이 저렴해지면 초점은 데이터 시스템과 에이전트가 이를 어떻게 활용하는지로 옮겨갑니다.</span></div>
 </div></div>
 </div><div class="trend">
-  <div class="tt"><a href="https://openai.com/index/introducing-gpt-live" target="_blank" rel="noopener">OpenAI, 음성용 GPT-Live 공개</a></div>
-  <div class="src">OpenAI Introduces GPT-Live for Voice · OpenAI Blog</div>
+  <div class="tt"><a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations" target="_blank" rel="noopener">벤치마크 신뢰성에 대한 검증</a></div>
+  <div class="src">Benchmark Reliability Under Scrutiny · OpenAI Blog</div>
   <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>GPT-Live is a new generation of voice models aimed at more natural human-AI interaction.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>GPT-Live는 더 자연스러운 사람-AI 상호작용을 목표로 한 새 세대의 음성 모델입니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>OpenAI analyzed SWE-Bench Pro and found issues affecting the reliability of coding evaluations.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>OpenAI는 SWE-Bench Pro를 분석해 코딩 평가의 신뢰성에 영향을 주는 문제들을 발견했습니다.</span></div>
 </div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It now powers ChatGPT Voice, reflecting a push toward multimodal, real-time interfaces.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>현재 ChatGPT Voice를 구동하며, 멀티모달·실시간 인터페이스로 향하는 흐름을 보여줍니다.</span></div>
-</div></div>
-</div><div class="trend">
-  <div class="tt"><a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations" target="_blank" rel="noopener">인기 코딩 벤치마크에 대한 의문</a></div>
-  <div class="src">Doubts About a Popular Coding Benchmark · OpenAI Blog</div>
-  <div class="biwrap"><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>OpenAI&#x27;s analysis found reliability issues in SWE-Bench Pro, a widely used coding benchmark.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>OpenAI의 분석은 널리 쓰이는 코딩 벤치마크 SWE-Bench Pro에서 신뢰성 문제를 발견했습니다.</span></div>
-</div><div class="bi">
-  <div class="en"><span class="flag">EN</span><span>It is a reminder to separate genuine signal from noise when comparing AI model claims.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>AI 모델의 주장을 비교할 때 진짜 신호와 잡음을 구분해야 한다는 점을 일깨웁니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>This is a reminder that a leaderboard number is only as good as its benchmark&#x27;s design.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>이는 리더보드 점수가 벤치마크 설계만큼만 믿을 만하다는 점을 일깨워 줍니다.</span></div>
 </div></div>
 </div></section>
 <section class="block"><h2>주목할 오픈소스 · Tools</h2><div class="tool">
   <div class="tt"><a href="https://github.com/omnigent-ai/omnigent" target="_blank" rel="noopener">omnigent</a></div>
   <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An open-source agent framework and meta-harness that lets you orchestrate and swap coding agents like Claude Code, Codex, and Cursor without rewriting.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor 같은 코딩 에이전트를 다시 작성하지 않고 조율하고 교체할 수 있는 오픈소스 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
-</div>
-</div><div class="tool">
-  <div class="tt"><a href="https://github.com/buynao/aipath" target="_blank" rel="noopener">aipath</a></div>
-  <div class="bi">
-  <div class="en"><span class="flag">EN</span><span>An interactive AI general education course with 30 lessons and zero math required, good for beginners.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>수학 없이 30개 강의로 구성된 인터랙티브 AI 교양 과정으로, 초보자에게 적합합니다.</span></div>
+  <div class="en"><span class="flag">EN</span><span>An open-source agent framework and meta-harness that orchestrates tools like Claude Code, Codex, and Cursor with shared policies and sandboxing.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>Claude Code, Codex, Cursor 같은 도구를 공통 정책과 샌드박스로 오케스트레이션하는 오픈소스 에이전트 프레임워크이자 메타 하네스입니다.</span></div>
 </div>
 </div><div class="tool">
   <div class="tt"><a href="https://github.com/ibrahimqureshae/mdflux" target="_blank" rel="noopener">mdflux</a></div>
   <div class="bi">
   <div class="en"><span class="flag">EN</span><span>A local-first desktop app that turns documents, including scanned PDFs, into clean AI-ready Markdown while using far fewer tokens than vision models.</span></div>
-  <div class="ko"><span class="flag">KO</span><span>스캔된 PDF를 포함한 문서를 깔끔한 AI용 마크다운으로 변환하는 로컬 우선 데스크톱 앱으로, 비전 모델보다 훨씬 적은 토큰을 사용합니다.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>스캔한 PDF를 포함한 문서를 깔끔한 AI용 마크다운으로 변환하며, 비전 모델보다 훨씬 적은 토큰을 쓰는 로컬 우선 데스크톱 앱입니다.</span></div>
+</div>
+</div><div class="tool">
+  <div class="tt"><a href="https://github.com/buynao/aipath" target="_blank" rel="noopener">aipath</a></div>
+  <div class="bi">
+  <div class="en"><span class="flag">EN</span><span>An interactive AI general education course with 30 lessons and zero math required.</span></div>
+  <div class="ko"><span class="flag">KO</span><span>수학 없이 30개 강의로 구성된 인터랙티브 AI 일반 교양 강좌입니다.</span></div>
 </div>
 </div></section>
 <section class="block quiz"><h2>오늘의 퀴즈 · Quiz (클릭해서 정답 확인)</h2><div class="q" data-answer="0">
-  <div class="qq">Q. 스케일링 법칙에 따르면, 손실을 모델 크기에 대해 로그-로그 척도로 그리면 보통 어떤 일이 일어나나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">According to scaling laws, what typically happens when loss is plotted against model size on a log-log scale?</span></div>
-  <button class="opt" type="button">The points form a nearly straight line (a power law)</button><button class="opt" type="button">The points scatter randomly with no pattern</button><button class="opt" type="button">Loss increases as model size grows</button><button class="opt" type="button">Loss stays exactly constant</button>
-  <div class="exp">✅ 스케일링 법칙은 손실이 로그-로그 척도에서 거의 직선을 따라 감소함을 보여주며, 이는 거듭제곱 법칙 관계를 반영합니다.<br><span style="color:#8a93a2">Scaling laws show that loss decreases along a nearly straight line on a log-log scale, reflecting a power-law relationship.</span></div>
+  <div class="qq">Q. 스케일링 법칙은 일반적으로 무엇을 설명하나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What do scaling laws typically describe?</span></div>
+  <button class="opt" type="button">How model loss falls predictably as size, data, and compute grow</button><button class="opt" type="button">How to compress a model after training</button><button class="opt" type="button">How to label training data faster</button><button class="opt" type="button">How to encrypt model weights</button>
+  <div class="exp">✅ 스케일링 법칙은 자원이 늘어날 때 손실이 멱법칙을 따라 예측 가능하게 감소함을 설명합니다.<br><span style="color:#8a93a2">Scaling laws describe the predictable, power-law drop in loss as resources increase.</span></div>
 </div><div class="q" data-answer="0">
-  <div class="qq">Q. AlayaWorld나 RynnWorld-4D 같은 월드 모델의 주된 목적은 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the main purpose of a world model like AlayaWorld or RynnWorld-4D?</span></div>
-  <button class="opt" type="button">To predict how an environment changes in response to actions</button><button class="opt" type="button">To compress the key-value cache</button><button class="opt" type="button">To translate text between languages</button><button class="opt" type="button">To rank search results</button>
-  <div class="exp">✅ 월드 모델은 환경의 동역학을 학습하여, 현재 상태와 행동이 주어졌을 때 미래 관측을 예측합니다.<br><span style="color:#8a93a2">A world model learns the dynamics of an environment, predicting future observations given the current state and actions.</span></div>
+  <div class="qq">Q. Agon의 핵심 아이디어는 무엇인가요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">What is the main idea behind Agon?</span></div>
+  <button class="opt" type="button">Two models grade each other and compete to out-reason the rival</button><button class="opt" type="button">A single model memorizes all facts in its weights</button><button class="opt" type="button">Removing attention entirely from transformers</button><button class="opt" type="button">Training only on the final answer with a reward model</button>
+  <div class="exp">✅ Agon은 두 모델이 서로 채점하며 경쟁을 통해 추론을 암묵적으로 평가합니다.<br><span style="color:#8a93a2">Agon has two models grade one another, judging reasoning implicitly through competition.</span></div>
 </div><div class="q" data-answer="0">
-  <div class="qq">Q. HiLS 어텐션은 긴 문맥에서 왜 밀집 어텐션 대신 청크 단위 희소 어텐션을 사용하나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">Why does HiLS Attention use chunk-wise sparse attention instead of dense attention for long contexts?</span></div>
-  <button class="opt" type="button">Because dense attention scales quadratically and is expensive for long inputs</button><button class="opt" type="button">Because sparse attention always ignores accuracy</button><button class="opt" type="button">Because dense attention cannot be trained at all</button><button class="opt" type="button">Because chunks make the model smaller in parameters</button>
-  <div class="exp">✅ 밀집 어텐션은 문맥 길이에 따라 비용이 제곱으로 늘어나므로, 희소 기법은 관련 청크만 선택해 효율을 유지합니다.<br><span style="color:#8a93a2">Dense attention&#x27;s cost grows quadratically with context length, so sparse methods select only relevant chunks to stay efficient.</span></div>
+  <div class="qq">Q. 메모리 증강 언어 모델은 왜 지식을 외부화하나요?<br><span style="color:var(--muted);font-weight:400;font-size:13px">Why do memory-augmented language models externalize knowledge?</span></div>
+  <button class="opt" type="button">To make facts easier to control and update instead of baking them into weights</button><button class="opt" type="button">To make the model impossible to update</button><button class="opt" type="button">To avoid using any GPUs</button><button class="opt" type="button">To hide facts from users</button>
+  <div class="exp">✅ 사실을 외부 지식 베이스에 두면 제어와 갱신이 쉬워집니다.<br><span style="color:#8a93a2">Storing facts in an external knowledge base makes them controllable and updatable.</span></div>
 </div></section>
 <section class="block vocab"><h2>핵심 영어 표현 · Vocabulary</h2><div class="v">
-  <div class="vt">autoregressive</div>
-  <div class="vm">자기회귀적인; 이전 출력을 바탕으로 다음 출력을 순차적으로 생성하는 방식</div>
-  <div class="vex"><div class="e">“The world model autoregressively generates each future frame from the previous one.”</div><div class="k">이 월드 모델은 이전 프레임으로부터 각 미래 프레임을 자기회귀적으로 생성합니다.</div></div>
-</div><div class="v">
-  <div class="vt">quadratic cost</div>
-  <div class="vm">제곱 비용; 입력 크기가 늘 때 계산량이 그 제곱에 비례해 커지는 것</div>
-  <div class="vex"><div class="e">“Dense attention has a quadratic cost with respect to sequence length.”</div><div class="k">밀집 어텐션은 시퀀스 길이에 대해 제곱 비용을 가집니다.</div></div>
-</div><div class="v">
-  <div class="vt">extrapolate</div>
-  <div class="vm">외삽하다; 학습에서 본 범위를 넘어선 조건으로 능력을 확장하다</div>
-  <div class="vex"><div class="e">“The model can extrapolate to contexts far longer than those seen in training.”</div><div class="k">이 모델은 학습에서 본 것보다 훨씬 긴 문맥으로 외삽할 수 있습니다.</div></div>
+  <div class="vt">power law</div>
+  <div class="vm">멱법칙, 한 값이 다른 값의 거듭제곱에 비례하는 관계</div>
+  <div class="vex"><div class="e">“The loss follows a power law as compute increases.”</div><div class="k">연산량이 늘어남에 따라 손실은 멱법칙을 따릅니다.</div></div>
 </div><div class="v">
   <div class="vt">compute-optimal</div>
-  <div class="vm">연산 최적의; 주어진 연산 예산에서 성능을 극대화하도록 자원을 배분한</div>
-  <div class="vex"><div class="e">“Scaling laws help teams find a compute-optimal balance of model size and data.”</div><div class="k">스케일링 법칙은 팀이 모델 크기와 데이터의 연산 최적 균형을 찾도록 돕습니다.</div></div>
+  <div class="vm">연산 최적의, 정해진 예산에서 최선의 자원 배분</div>
+  <div class="vex"><div class="e">“They chose a compute-optimal balance of model size and data.”</div><div class="k">그들은 모델 크기와 데이터의 연산 최적 균형을 택했습니다.</div></div>
 </div><div class="v">
-  <div class="vt">Mixture-of-Experts</div>
-  <div class="vm">전문가 혼합; 입력마다 일부 전문가 하위망만 활성화해 효율을 높이는 구조</div>
-  <div class="vex"><div class="e">“Gemma 4 offers both dense and Mixture-of-Experts architectures.”</div><div class="k">Gemma 4는 밀집 구조와 전문가 혼합 구조를 모두 제공합니다.</div></div>
+  <div class="vt">long-horizon task</div>
+  <div class="vm">여러 단계에 걸친 긴 과제</div>
+  <div class="vex"><div class="e">“Memory helps agents handle long-horizon tasks.”</div><div class="k">메모리는 에이전트가 장기 과제를 처리하도록 돕습니다.</div></div>
 </div><div class="v">
-  <div class="vt">bottleneck</div>
-  <div class="vm">병목; 전체 성능을 제한하는 가장 느리거나 부족한 지점</div>
-  <div class="vex"><div class="e">“KV cache growth is a major memory bottleneck in long-context decoding.”</div><div class="k">KV 캐시 증가는 긴 문맥 디코딩에서 주요한 메모리 병목입니다.</div></div>
+  <div class="vt">linearization</div>
+  <div class="vm">선형화, 제곱 비용 연산을 선형 비용으로 근사하는 것</div>
+  <div class="vex"><div class="e">“Linearization reduces the cost of long-context inference.”</div><div class="k">선형화는 긴 문맥 추론의 비용을 줄여줍니다.</div></div>
 </div><div class="v">
-  <div class="vt">leakage</div>
-  <div class="vm">누출; 지웠어야 할 정보가 여전히 표현에 남아 새어 나오는 현상</div>
-  <div class="vex"><div class="e">“MANCE consistently reduces concept leakage after erasure.”</div><div class="k">MANCE는 제거 후 개념 누출을 일관되게 줄입니다.</div></div>
+  <div class="vt">knowledge base</div>
+  <div class="vm">지식 베이스, 사실을 저장하고 검색하는 외부 저장소</div>
+  <div class="vex"><div class="e">“The model fetches facts from a knowledge base as needed.”</div><div class="k">이 모델은 필요할 때 지식 베이스에서 사실을 가져옵니다.</div></div>
+</div><div class="v">
+  <div class="vt">latent token</div>
+  <div class="vm">잠재 토큰, 압축된 의미를 담은 내부 표현 단위</div>
+  <div class="vex"><div class="e">“Past experience is compressed into latent memory tokens.”</div><div class="k">과거 경험은 잠재 메모리 토큰으로 압축됩니다.</div></div>
+</div><div class="v">
+  <div class="vt">inference</div>
+  <div class="vm">추론, 학습된 모델로 결과를 생성하는 과정</div>
+  <div class="vex"><div class="e">“Inference prices have fallen sharply over the past year.”</div><div class="k">추론 가격은 지난 한 해 동안 급격히 떨어졌습니다.</div></div>
 </div></section>
 <div class="takeaway"><span class="lbl">오늘 반드시 기억할 것 · Takeaway</span>
-  오늘의 연구는 두 힘이 함께 작동함을 보여줍니다. 더 큰 모델을 예측 가능하게 더 좋게 만드는 스케일링 법칙과, 그런 모델을 상호작용형 세계와 에이전트를 구동할 만큼 저렴하게 유지하는 효율화 기법입니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">Today&#x27;s research shows two forces working together: scaling laws that make bigger models predictably better, and efficiency tricks that keep those models affordable enough to power interactive worlds and agents.</span></div>
+  스케일링 법칙은 규모 확장이 어떻게 성과로 이어지는지 알려주지만, 오늘의 연구는 그 최전선이 더 똑똑한 메모리, 더 저렴한 추론, 더 나은 추론 평가로 옮겨가고 있음을 보여줍니다.<br><span style="color:#9fe6c8;font-weight:400;font-size:14px">Scaling laws tell us how growth pays off, but today&#x27;s research shows the frontier is shifting toward smarter memory, cheaper inference, and better ways to judge reasoning.</span></div>
 </main>
 <footer>AI Daily Learn · Claude 가 매일 자동 생성 · 학습은 복리입니다 📈</footer>
 <script>
