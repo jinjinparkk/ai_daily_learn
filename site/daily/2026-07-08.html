@@ -61,6 +61,15 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
   opacity:0;visibility:hidden;transform:translateY(4px);transition:.12s;
   pointer-events:none;z-index:20}
 .tip:hover::after,.tip:focus::after{opacity:1;visibility:visible;transform:translateY(0)}
+/* 일반 영어 단어 hover 사전 */
+.w{border-radius:3px;transition:background .1s}
+.w:hover{background:rgba(124,156,255,.20);cursor:help}
+.wtip{position:absolute;background:#0b0d12;color:var(--text);border:1px solid var(--accent);
+  padding:5px 10px;border-radius:7px;font-size:13px;line-height:1.5;max-width:280px;
+  box-shadow:0 6px 18px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.1s;
+  z-index:40;pointer-events:none}
+.wtip.show{opacity:1;visibility:visible}
+.wtip b{color:var(--accent2)}
 .paper{padding:16px 0;border-bottom:1px solid var(--line)}
 .paper:last-child{border-bottom:none;padding-bottom:0}
 .paper .pt{font-weight:700;font-size:16px}
@@ -392,6 +401,67 @@ document.querySelectorAll('.quiz .opt').forEach(function(btn){
     var exp=q.querySelector('.exp'); if(exp)exp.style.display='block';
   });
 });
+</script><script>window.__WB__={"about": "~에 관해", "accuracy": "정확성", "across": "가로질러", "act": "행동하다", "acting": "연기", "action": "행동", "actions": "행동들", "actual": "실제의", "actually": "실제로", "add": "더하다", "added": "추가된", "adding": "추가하기", "affordable": "저렴한", "agent": "에이전트", "agents": "에이전트들", "agents'": "에이전트의", "ai": "인공지능", "aim": "목표", "alayaworld": "알라야월드", "align": "정렬하다", "always": "항상", "an": "한", "analysis": "분석", "and": "그리고", "answer": "답변", "answering": "답변하기", "any": "어떤", "api": "API", "appearance": "외관", "approach": "접근", "apps": "앱", "architectures": "아키텍처", "are": "이다", "arguments": "주장", "as": "로서", "assistant": "보조원", "at": "에", "attend": "참석하다", "attention": "주의", "audio": "음성", "authors": "저자", "autonomously": "자율적으로", "autoregressive": "자동회귀적", "autoregressively": "자동회귀적으로", "available": "이용가능한", "back": "돌아가다", "background": "배경", "bair": "버클리AI연구", "based": "기반의", "be": "이다", "because": "왜냐하면", "becomes": "된다", "becoming": "되어가는", "before": "이전에", "beginners": "초보자", "benchmark": "벤치마크", "benchmarks": "벤치마크", "berkeley": "버클리", "better": "더좋은", "between": "사이에", "beyond": "넘어서", "big": "큰", "bigger": "더큰", "blog": "블로그", "both": "둘다", "bottleneck": "병목", "budgets": "예산", "build": "만들다", "building": "만드는", "but": "그러나", "by": "에의해", "calculator": "계산기", "call": "호출", "calling": "호출하기", "calls": "호출", "can": "할수있다", "capability": "능력", "capable": "가능한", "captures": "포착하다", "casting": "던지기", "center": "중심", "challenge": "도전", "chatbot": "챗봇", "cheap": "싼", "cheaper": "더싼", "chunk-wise": "청크단위", "chunks": "청크", "claude": "클로드", "closer": "더가까운", "code": "코드", "codex": "코덱스", "coding": "코딩", "colorful": "다채로운", "combat": "싸우다", "combining": "결합하기", "complete": "완전한", "compute": "계산", "connect": "연결", "context": "맥락", "contexts": "맥락들", "control": "제어", "core": "핵심", "cost": "비용", "costly": "비싼", "could": "할수있었다", "course": "과정", "covers": "포함하다", "create": "만들다", "current": "현재", "cursor": "커서", "custom": "사용자정의", "customizable": "맞춤가능", "data": "데이터", "database": "데이터베이스", "dataset": "데이터셋", "decides": "결정", "decision": "결정", "decoding": "디코딩", "deeper": "더깊은", "demonstrations": "시연", "dense": "조밀한", "deployment": "배포", "deployments": "배포", "depth": "깊이", "descriptions": "설명", "developers": "개발자", "difficulty": "어려움", "directly": "직접", "distillation": "증류", "distinguishes": "구분하다", "do": "하다", "documents": "문서", "does": "한다", "doesn't": "하지않다", "done": "완료된", "dynamics": "역학", "each": "각각", "earlier": "더이른", "education": "교육", "efficient": "효율적", "element": "요소", "embodied": "구현된", "encoders": "인코더", "end-to-end": "완전자동", "endlessly": "끝없이", "entertainment": "오락", "environment": "환경", "episodic": "에피소드식", "eve": "이브", "every": "모든", "everything": "모든것", "expand": "확장", "expensive": "비싼", "explains": "설명하다", "exploding": "폭발하는", "extending": "확장", "external": "외부", "extrapolate": "추정하다", "extrapolates": "추정", "extrapolation": "외삽", "fallen": "떨어진", "falls": "떨어지다", "family": "가족", "far": "멀리", "fast": "빠른", "faster": "더빠른", "feed": "공급", "feeds": "공급", "fetch": "가져오다", "fewer": "더적은", "find": "찾다", "finish": "끝내다", "first": "처음", "flags": "플래그", "flaws": "결함", "flow": "흐름", "fly": "날다", "focused": "집중된", "for": "위해", "frame": "프레임", "frames": "프레임", "framework": "프레임워크", "frameworks": "프레임워크", "free": "무료", "fresh": "신선한", "from": "로부터", "frontier": "최전선", "frontier-level": "최전선급", "full": "완전한", "full-stack": "풀스택", "functions": "함수", "fundamentals": "기초", "future": "미래", "game": "게임", "games": "게임", "gap": "간격", "gather": "모으다", "gemini": "제미니", "gemma": "젬마", "general": "일반적", "generate": "생성하다", "generated": "생성된", "generates": "생성", "generation": "생성", "generative": "생성형", "geometry": "기하학", "get": "얻다", "gets": "얻다", "getting": "얻기", "give": "주다", "given": "주어진", "gives": "준다", "goal": "목표", "google": "구글", "guessing": "추측", "hand-authoring": "수동작성", "hand-coding": "수동코딩", "handling": "처리", "has": "가지다", "have": "가지다", "hierarchical": "계층적", "high": "높은", "high-concurrency": "높은동시성", "hils": "HILS", "how": "어떻게", "huge": "거대한", "if": "만약", "image": "이미지", "imitate": "모방하다", "improved": "개선된", "improves": "개선하다", "improving": "개선하기", "in": "안에", "industry": "산업", "inference": "추론", "infinite": "무한", "information": "정보", "inspect": "검사하다", "instead": "대신", "instruction": "명령", "intelligence": "지능", "interactive": "상호작용형", "interacts": "상호작용", "into": "안으로", "is": "이다", "issues": "문제", "it": "그것", "iteratively": "반복적으로", "its": "그것의", "itself": "그자체", "job": "일", "jointly": "함께", "just": "단지", "keeps": "유지하다", "key": "핵심", "know": "알다", "knows": "안다", "labs": "연구소", "lack": "부족", "language": "언어", "language-modeling": "언어모델링", "large": "큰", "late": "늦은", "learning": "학습", "learns": "배우다", "length": "길이", "lengths": "길이", "lesson": "수업", "lessons": "수업", "lets": "하게하다", "level": "수준", "like": "좋아하다", "limited": "제한된", "list": "목록", "live": "살다", "llm": "대언어모델", "llms": "대언어모델", "locally": "로컬에", "long": "긴", "long-context": "긴맥락", "long-horizon": "장기", "longer": "더긴", "look": "보다", "loop": "루프", "loss": "손실", "low-value": "낮은가치", "major": "주요", "make": "만들다", "makes": "만든다", "making": "만드는", "managed": "관리된", "manipulation": "조작", "many": "많은", "maps": "지도", "match": "일치", "matches": "일치하다", "math-free": "수학없는", "maturing": "성숙해지는", "mcp": "MCP", "means": "의미", "memory": "메모리", "meta-harness": "메타하네스", "method": "방법", "methods": "방법", "million": "백만", "mislead": "오도하다", "mistakes": "실수", "mixture-of-experts": "혼합전문가", "mode'": "모드", "model": "모델", "modeling": "모델링", "models": "모델", "more": "더많은", "motion": "움직임", "move": "움직이다", "much": "많이", "multimodal": "다중양식", "must": "반드시", "name": "이름", "narrows": "좁혀진다", "natively": "자체적으로", "nearly": "거의", "need": "필요", "needed": "필요한", "needs": "필요", "never": "절대", "new": "새로운", "next": "다음", "normal": "정상", "note": "주목", "number": "숫자", "observations": "관찰", "observing": "관찰", "of": "의", "offering": "제공", "often": "자주", "omnigent": "옴니젠트", "on": "위에", "on-policy": "온폴리시", "one": "하나", "only": "오직", "open-source": "오픈소스", "open-weight": "공개가중치", "openai": "오픈에이아이", "openai's": "오픈에이아이의", "optical": "광학", "or": "또는", "orchestrate": "조율하다", "our": "우리의", "outputs": "출력", "over": "초과", "own": "자신의", "papers": "논문", "parameters": "매개변수", "pass": "통과", "per": "당", "phone": "전화", "physical": "물리적", "pipeline": "파이프라인", "plain": "평범한", "plan": "계획", "plans": "계획", "playable": "플레이 가능", "plus": "더하기", "policies": "정책", "poor": "빈약한", "popular": "인기있는", "practical": "실용적", "predict": "예측", "predicting": "예측하는", "predictions": "예측", "predictor": "예측기", "predicts": "예측", "previous": "이전", "prices": "가격", "pro": "찬성", "problem": "문제", "product": "제품", "production": "생산", "protocol": "프로토콜", "protocols": "프로토콜", "quadratic": "이차", "quality": "품질", "query": "쿼리", "ranging": "범위", "rather": "오히려", "reach": "도달", "react": "반응", "real": "실제", "real-time": "실시간", "real-world": "실제", "reality": "현실", "reasoning": "추론", "reasons": "이유", "receives": "수신", "reduce": "감소", "reliability": "신뢰성", "remembers": "기억", "reminder": "상기", "remote": "원격", "remove": "제거", "repeats": "반복", "replace": "교체", "report": "보고", "representation": "표현", "request": "요청", "research": "연구", "researchers": "연구원", "responds": "응답", "result": "결과", "results": "결과", "retrieval": "검색", "richer": "풍부한", "right": "맞는", "robot": "로봇", "robotic": "로봇", "robotics": "로봇공학", "robots": "로봇", "roughly": "대략", "rule": "규칙", "run": "실행", "runs": "실행", "same": "같은", "scalable": "확장가능", "scene": "장면", "scores": "점수", "search": "검색", "serving": "제공", "several": "여러", "shared": "공유", "shot": "샷", "shows": "보여줌", "side": "측면", "signals": "신호", "simulate": "시뮬레이션", "single": "단일", "smart": "똑똑한", "so": "그래서", "solve": "해결", "span": "범위", "sparse": "희소", "spell": "철자", "spotlight": "조명", "stage": "단계", "standard": "표준", "state": "상태", "static": "정적", "steps": "단계", "strong": "강한", "structured": "구조화된", "student": "학생", "such": "그러한", "support": "지원", "supports": "지원", "system": "시스템", "systems": "시스템", "take": "가져가기", "task": "작업", "tasks": "작업", "teacher": "교사", "technical": "기술적", "test": "테스트", "text": "텍스트", "than": "보다", "that": "그", "them": "그들", "themselves": "자신들", "these": "이", "they": "그들", "things": "것", "think": "생각", "this": "이", "through": "통해", "time": "시간", "times": "시간", "today's": "오늘의", "tool": "도구", "tools": "도구", "top": "상단", "toward": "향하여", "traditional": "전통적", "train": "훈련", "trained": "훈련된", "training": "훈련", "use": "사용", "user": "사용자", "uses": "사용", "very": "매우", "video": "영상", "vision": "비전", "web": "웹", "what": "무엇", "when": "언제", "which": "어느", "while": "동안", "who": "누가", "whole": "전체", "why": "왜", "world": "세계", "year": "년"};
+(function(){
+  var WB = window.__WB__ || {};
+  if (!Object.keys(WB).length) return;
+  var SEL = '.bi .en, .vocab .vex .e, .paper .pt .en, .concept .term, .fund .term';
+
+  function wrapWords(root){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    while (walker.nextNode()){
+      var n = walker.currentNode;
+      if (n.parentNode.closest('.tip, .flag, .w')) continue;   // 핵심용어/뱃지/이미처리 제외
+      if (!/[A-Za-z]/.test(n.nodeValue)) continue;
+      nodes.push(n);
+    }
+    nodes.forEach(function(n){
+      var frag = document.createDocumentFragment();
+      n.nodeValue.split(/(\b[A-Za-z][A-Za-z'\-]*\b)/).forEach(function(p){
+        if (/^[A-Za-z][A-Za-z'\-]*$/.test(p)){
+          var s = document.createElement('span'); s.className='w'; s.textContent=p; frag.appendChild(s);
+        } else { frag.appendChild(document.createTextNode(p)); }
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+  }
+  document.querySelectorAll(SEL).forEach(wrapWords);
+
+  function lookup(w){
+    w = w.toLowerCase();
+    if (WB[w]) return WB[w];
+    var c = [];
+    if (w.length > 3){
+      if (w.slice(-3)==='ies') c.push(w.slice(0,-3)+'y');
+      if (w.slice(-2)==='es') c.push(w.slice(0,-2));
+      if (w.slice(-1)==='s') c.push(w.slice(0,-1));
+      if (w.slice(-2)==='ed'){ c.push(w.slice(0,-2)); c.push(w.slice(0,-1)); }
+      if (w.slice(-3)==='ing'){ c.push(w.slice(0,-3)); c.push(w.slice(0,-3)+'e'); }
+      if (w.slice(-2)==='ly') c.push(w.slice(0,-2));
+    }
+    for (var i=0;i<c.length;i++) if (WB[c[i]]) return WB[c[i]];
+    return null;
+  }
+
+  var tip = document.createElement('div'); tip.className='wtip'; document.body.appendChild(tip);
+  document.addEventListener('mouseover', function(e){
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('w')) return;
+    var m = lookup(t.textContent);
+    if (!m){ tip.classList.remove('show'); return; }
+    tip.innerHTML = '<b>'+t.textContent+'</b> — ' + m;
+    tip.classList.add('show');
+    var r = t.getBoundingClientRect();
+    var top = window.scrollY + r.top - tip.offsetHeight - 8;
+    if (top < window.scrollY + 4) top = window.scrollY + r.bottom + 8;  // 위 공간 없으면 아래로
+    var left = Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - tip.offsetWidth - 8);
+    tip.style.top = top + 'px'; tip.style.left = Math.max(4, left) + 'px';
+  });
+  document.addEventListener('mouseout', function(e){
+    if (e.target.classList && e.target.classList.contains('w')) tip.classList.remove('show');
+  });
+})();
 </script>
 </body>
 </html>
