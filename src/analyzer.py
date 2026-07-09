@@ -93,6 +93,39 @@ def _repair_json(client: anthropic.Anthropic, model: str, broken: str) -> dict:
     return json.loads(_extract_json(text))
 
 
+def translate_words(model: str, api_key: str, words: list[str]) -> dict:
+    """영어 단어 목록 → {단어: 한국어 뜻} 사전. 페이지 hover 사전용.
+
+    단순 작업이라 저가 모델 사용. 청크로 나눠 호출, 일부 실패해도 나머지는 유지.
+    """
+    if not words:
+        return {}
+    client = anthropic.Anthropic(api_key=api_key)
+    out: dict = {}
+    chunk = 350
+    for i in range(0, len(words), chunk):
+        part = words[i : i + chunk]
+        prompt = (
+            "다음 영어 단어 각각의 가장 일반적인 한국어 뜻을 아주 짧게(1~4어절) 달아줘.\n"
+            "순수 JSON 객체 {\"word\":\"뜻\"} 하나만 출력. 코드펜스/주석/설명 금지.\n"
+            "고유명사나 뜻을 모르면 생략해도 된다.\n\n"
+            + json.dumps(part, ensure_ascii=False)
+        )
+        try:
+            with client.messages.stream(
+                model=model, max_tokens=8000,
+                system="너는 영한 사전이다. 요청된 단어들의 한국어 뜻만 JSON 으로 출력한다.",
+                messages=[{"role": "user", "content": prompt}],
+            ) as stream:
+                resp = stream.get_final_message()
+            text = next((b.text for b in resp.content if b.type == "text"), "")
+            out.update(json.loads(_extract_json(text)))
+        except (json.JSONDecodeError, anthropic.APIError) as exc:
+            log.warning("워드북 청크 실패(무시): %s", exc)
+    # 키를 소문자로 정규화
+    return {str(k).lower(): v for k, v in out.items() if isinstance(v, str) and v.strip()}
+
+
 def analyze(model: str, api_key: str, date_str: str, papers: list[dict], news: list[dict],
             repos: list[dict], fundamental: dict) -> dict:
     """원자료 → 이중언어 학습 콘텐츠 dict. Claude 호출 + JSON 파싱.

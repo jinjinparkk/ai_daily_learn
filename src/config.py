@@ -17,6 +17,8 @@ class Config:
     # 기본은 opus-4-8. 비용을 아끼려면 .env 에서 claude-haiku-4-5 또는 claude-sonnet-5 로 변경.
     anthropic_api_key: str = field(default_factory=lambda: os.getenv("ANTHROPIC_API_KEY", ""))
     model: str = field(default_factory=lambda: os.getenv("AIDL_MODEL", "claude-opus-4-8"))
+    # 워드북(단어별 뜻) 번역은 단순 작업이라 저가 모델로 (비용 절감)
+    wordbook_model: str = field(default_factory=lambda: os.getenv("AIDL_WORDBOOK_MODEL", "claude-haiku-4-5"))
 
     # --- 출력 경로 ---
     site_dir: Path = field(default_factory=lambda: Path(os.getenv("AIDL_SITE_DIR", "site")))

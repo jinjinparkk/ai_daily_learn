@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 
 from .templates import page_shell
@@ -220,7 +221,12 @@ def render_body(date_str: str, data: dict, label: str = "") -> str:
 {_takeaway(data)}"""
 
 
+def wordbook_json(data: dict) -> str:
+    return json.dumps(data.get("wordbook") or {}, ensure_ascii=False)
+
+
 def render_daily(date_str: str, data: dict, brand: str, tagline: str) -> str:
     body = render_body(date_str, data)
     title = f"{date_str} · {brand}"
-    return page_shell(title, body, tagline, brand, base="../", include_quiz_js=True)
+    return page_shell(title, body, tagline, brand, base="../",
+                      include_quiz_js=True, wordbook_json=wordbook_json(data))

@@ -58,6 +58,15 @@ section.block h2{font-size:15px;margin:0 0 14px;color:var(--accent);letter-spaci
   opacity:0;visibility:hidden;transform:translateY(4px);transition:.12s;
   pointer-events:none;z-index:20}
 .tip:hover::after,.tip:focus::after{opacity:1;visibility:visible;transform:translateY(0)}
+/* 일반 영어 단어 hover 사전 */
+.w{border-radius:3px;transition:background .1s}
+.w:hover{background:rgba(124,156,255,.20);cursor:help}
+.wtip{position:absolute;background:#0b0d12;color:var(--text);border:1px solid var(--accent);
+  padding:5px 10px;border-radius:7px;font-size:13px;line-height:1.5;max-width:280px;
+  box-shadow:0 6px 18px rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.1s;
+  z-index:40;pointer-events:none}
+.wtip.show{opacity:1;visibility:visible}
+.wtip b{color:var(--accent2)}
 .paper{padding:16px 0;border-bottom:1px solid var(--line)}
 .paper:last-child{border-bottom:none;padding-bottom:0}
 .paper .pt{font-weight:700;font-size:16px}
@@ -119,10 +128,77 @@ document.querySelectorAll('.quiz .opt').forEach(function(btn){
 """
 
 
+# 본문 영어 단어에 hover → 워드북(window.__WB__)에서 뜻 조회. 활용형(복수/과거/-ing 등)도 처리.
+DICT_HOVER_JS = r"""
+(function(){
+  var WB = window.__WB__ || {};
+  if (!Object.keys(WB).length) return;
+  var SEL = '.bi .en, .vocab .vex .e, .paper .pt .en, .concept .term, .fund .term';
+
+  function wrapWords(root){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    while (walker.nextNode()){
+      var n = walker.currentNode;
+      if (n.parentNode.closest('.tip, .flag, .w')) continue;   // 핵심용어/뱃지/이미처리 제외
+      if (!/[A-Za-z]/.test(n.nodeValue)) continue;
+      nodes.push(n);
+    }
+    nodes.forEach(function(n){
+      var frag = document.createDocumentFragment();
+      n.nodeValue.split(/(\b[A-Za-z][A-Za-z'\-]*\b)/).forEach(function(p){
+        if (/^[A-Za-z][A-Za-z'\-]*$/.test(p)){
+          var s = document.createElement('span'); s.className='w'; s.textContent=p; frag.appendChild(s);
+        } else { frag.appendChild(document.createTextNode(p)); }
+      });
+      n.parentNode.replaceChild(frag, n);
+    });
+  }
+  document.querySelectorAll(SEL).forEach(wrapWords);
+
+  function lookup(w){
+    w = w.toLowerCase();
+    if (WB[w]) return WB[w];
+    var c = [];
+    if (w.length > 3){
+      if (w.slice(-3)==='ies') c.push(w.slice(0,-3)+'y');
+      if (w.slice(-2)==='es') c.push(w.slice(0,-2));
+      if (w.slice(-1)==='s') c.push(w.slice(0,-1));
+      if (w.slice(-2)==='ed'){ c.push(w.slice(0,-2)); c.push(w.slice(0,-1)); }
+      if (w.slice(-3)==='ing'){ c.push(w.slice(0,-3)); c.push(w.slice(0,-3)+'e'); }
+      if (w.slice(-2)==='ly') c.push(w.slice(0,-2));
+    }
+    for (var i=0;i<c.length;i++) if (WB[c[i]]) return WB[c[i]];
+    return null;
+  }
+
+  var tip = document.createElement('div'); tip.className='wtip'; document.body.appendChild(tip);
+  document.addEventListener('mouseover', function(e){
+    var t = e.target;
+    if (!t.classList || !t.classList.contains('w')) return;
+    var m = lookup(t.textContent);
+    if (!m){ tip.classList.remove('show'); return; }
+    tip.innerHTML = '<b>'+t.textContent+'</b> — ' + m;
+    tip.classList.add('show');
+    var r = t.getBoundingClientRect();
+    var top = window.scrollY + r.top - tip.offsetHeight - 8;
+    if (top < window.scrollY + 4) top = window.scrollY + r.bottom + 8;  // 위 공간 없으면 아래로
+    var left = Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - tip.offsetWidth - 8);
+    tip.style.top = top + 'px'; tip.style.left = Math.max(4, left) + 'px';
+  });
+  document.addEventListener('mouseout', function(e){
+    if (e.target.classList && e.target.classList.contains('w')) tip.classList.remove('show');
+  });
+})();
+"""
+
+
 def page_shell(title: str, body: str, tagline: str, brand: str, base: str = "",
-               include_quiz_js: bool = False) -> str:
+               include_quiz_js: bool = False, wordbook_json: str = "") -> str:
     """base: 루트까지의 상대 경로 접두사. 루트 페이지는 "", /daily/ 하위는 "../"."""
     js = f"<script>{QUIZ_JS}</script>" if include_quiz_js else ""
+    if wordbook_json and wordbook_json != "{}":
+        js += f"<script>window.__WB__={wordbook_json};{DICT_HOVER_JS}</script>"
     return f"""<!doctype html>
 <html lang="ko">
 <head>

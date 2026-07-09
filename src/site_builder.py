@@ -6,7 +6,7 @@ import json
 import logging
 from pathlib import Path
 
-from .page_generator import render_body
+from .page_generator import render_body, wordbook_json
 from .templates import page_shell
 
 log = logging.getLogger("aidl.site")
@@ -42,7 +42,8 @@ def upsert_manifest(site_dir: Path, date_str: str, headline_ko: str) -> list[dic
 def build_index(site_dir: Path, latest_date: str, data: dict, brand: str, tagline: str) -> None:
     """루트 index.html = 가장 최근 학습 콘텐츠(오늘)."""
     body = render_body(latest_date, data, label=" · 오늘의 학습 / Today")
-    html_out = page_shell(brand, body, tagline, brand, base="", include_quiz_js=True)
+    html_out = page_shell(brand, body, tagline, brand, base="",
+                          include_quiz_js=True, wordbook_json=wordbook_json(data))
     (site_dir / "index.html").write_text(html_out, encoding="utf-8")
     log.info("index.html 생성 (%s)", latest_date)
 

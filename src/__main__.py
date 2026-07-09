@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -27,6 +28,30 @@ from datetime import date as _date
 from . import analyzer, page_generator, seen as seen_mod, site_builder
 from .config import FUNDAMENTALS, RSS_FEEDS, Config
 from .sources import arxiv_client, github_client, hf_papers, rss_client
+
+
+_WORD_RE = re.compile(r"[A-Za-z][A-Za-z'\-]{1,}")
+
+
+def _collect_en_words(data: dict, cap: int = 800) -> list[str]:
+    """콘텐츠에서 등장하는 영어 단어(소문자, 중복제거) 수집 — hover 사전 대상."""
+    words: set[str] = set()
+
+    def walk(o, key=""):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                walk(v, k)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v, key)
+        elif isinstance(o, str) and key not in ("url", "ko", "meaning_ko", "example_ko",
+                                                "topic_ko", "term_ko", "title_ko"):
+            for w in _WORD_RE.findall(o):
+                if len(w) >= 2:
+                    words.add(w.lower())
+
+    walk(data)
+    return sorted(words)[:cap]
 
 
 def _fundamental_for(date_str: str) -> dict:
@@ -107,6 +132,15 @@ def rerender(cfg: Config) -> int:
     for f in files:
         date_str = f.stem
         data = json.loads(f.read_text(encoding="utf-8"))
+        # 워드북이 없으면 저가로 백필(키 있을 때만) 후 content 갱신
+        if not data.get("wordbook") and cfg.anthropic_api_key:
+            try:
+                data["wordbook"] = analyzer.translate_words(
+                    cfg.wordbook_model, cfg.anthropic_api_key, _collect_en_words(data))
+                f.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+                log.info("[%s] 워드북 백필: %d단어", date_str, len(data["wordbook"]))
+            except Exception:  # noqa: BLE001
+                log.exception("[%s] 워드북 백필 실패(무시)", date_str)
         html = page_generator.render_daily(date_str, data, cfg.site_title, cfg.site_tagline)
         (cfg.site_dir / "daily" / f"{date_str}.html").write_text(html, encoding="utf-8")
         manifest = site_builder.upsert_manifest(
@@ -146,6 +180,16 @@ def run(cfg: Config, date_str: str, fetch_only: bool) -> int:
         cfg.model, cfg.anthropic_api_key, date_str,
         raw["papers"], raw["news"], raw["repos"], fundamental,
     )
+
+    # 페이지 hover 사전(워드북) 생성 — 실패해도 무시(페이지는 정상)
+    try:
+        wb = analyzer.translate_words(cfg.wordbook_model, cfg.anthropic_api_key,
+                                      _collect_en_words(data))
+        data["wordbook"] = wb
+        log.info("워드북 생성: %d단어", len(wb))
+    except Exception:  # noqa: BLE001
+        log.exception("워드북 생성 실패(무시)")
+        data.setdefault("wordbook", {})
 
     analysis_path = cfg.data_dir / f"{date_str}_learn.json"
     analysis_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
